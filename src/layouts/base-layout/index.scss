@@ -1,0 +1,5 @@
+@use "src/styles/mixins" as mx;
+
+.base-layout__main {
+  padding-block-start : var(--size-header);
+}

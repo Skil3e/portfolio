@@ -1,0 +1,59 @@
+@forward "phone-input";
+@use "src/styles/mixins" as mx;
+
+.form {
+  margin-block-start : var(--size-lg);
+
+  > .input__wrapper, > .input__group {
+	&:not(:first-child) {
+	  margin-block-start : var(--size-md);
+	}
+  }
+
+  [type="submit"] {
+	margin-block-start : var(--size-md);
+  }
+}
+
+.input__wrapper {
+  position : relative;
+  width    : 100%;
+}
+
+.input__label {
+  display          : block;
+  margin-block-end : var(--size-sm);
+}
+
+.input__group {
+  gap     : var(--size-md);
+  display : flex;
+  @include mx.mobile() {
+	flex-direction : column;
+  }
+}
+
+textarea {
+  --input-padding : var(--size-md);
+}
+
+.input__field {
+  background-color : var(--c-grey-1);
+  min-height       : 48px;
+  display          : flex;
+  align-items      : center;
+  width            : 100%;
+  padding          : var(--input-padding);
+  border           : none;
+  border-radius    : var(--size-sm);
+
+  &:focus {
+	outline-offset : 2px;
+	outline        : var(--state-focus);
+  }
+}
+
+.input__error {
+  margin-block-start : var(--size-sm);
+  color              : firebrick;
+}

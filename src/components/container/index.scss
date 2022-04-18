@@ -1,0 +1,16 @@
+.container {
+  max-width     : var(--size-container);
+  margin-inline : auto;
+
+  &--lg {
+	--size-container : var(--size-container-lg)
+  }
+
+  &--px {
+	padding-inline : var(--size-lg);
+  }
+
+  &--py {
+	padding-block : var(--size-lg);
+  }
+}

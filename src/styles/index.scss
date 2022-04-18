@@ -1,0 +1,60 @@
+@forward "normalize";
+@forward "reset";
+@forward "fonts";
+@forward "tokens";
+@forward "utilities";
+@forward "components";
+@forward "layouts";
+@forward "pages";
+
+a, button {
+  &:focus {
+	outline-offset : 2px;
+	outline        : var(--state-focus);
+  }
+}
+
+body {
+  font-family      : "Manrope", var(--font-type-base);
+  font-size        : var(--font-size-p);
+  background-color : var(--c-bg-1);
+  color            : var(--c-text);
+  line-height      : 1.6;
+}
+
+main {
+  min-height : 100vh;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+	font-size   : var(--font-size-#{$i});
+	font-weight : 700;
+	line-height : 1;
+  }
+}
+
+::selection {
+  background-color : var(--c-accent);
+  color            : var(--c-on-accent);
+}
+
+::-webkit-scrollbar {
+  width  : 10px;
+  height : 8px;
+
+  &-track {
+	background    : var(--c-grey-2);
+	border-radius : 10px;
+  }
+
+  &-thumb {
+	background    : var(--c-grey-6);
+	border-radius : 10px;
+
+	&:hover {
+	  background : var(--c-grey-8)
+	}
+  }
+}
+

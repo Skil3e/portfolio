@@ -1,0 +1,63 @@
+$size          : 40px;
+$dot-width     : 100%;
+$dot-height    : 8%;
+$dot-size-open : 65%;
+$top-bottom    : 32%;
+
+.menu-toggle {
+  position   : relative;
+  cursor     : pointer;
+  width      : $size;
+  height     : $size;
+  transition : transform 300ms cubic-bezier(0.4, -0.6, 0.6, 1.6);
+
+  &__dot {
+	position            : absolute;
+	left                : 50%;
+	transform           : translateX(-50%);
+	border-radius       : 1000rem;
+	width               : $dot-width;
+	height              : $dot-height;
+	transition          : 300ms ease-in-out;
+	transition-property : transform, opacity, top, bottom, width;
+	background-color    : var(--c-grey-1);
+
+	&:nth-child(1) {
+	  top : $top-bottom
+	}
+
+	&:nth-child(2) {
+	  display : none;
+	}
+
+	&:nth-child(3) {
+	  width     : 25px;
+	  transform : translateX(-25%);
+	  bottom    : $top-bottom
+	}
+  }
+
+  &--open {
+
+	.menu-toggle__dot {
+	  width : $dot-size-open;
+
+	  &:nth-child(1) {
+		top       : 50%;
+		left      : 50%;
+		transform : translate(-50%, -50%) rotate(45deg);
+	  }
+
+	  &:nth-child(2) {
+		width   : 0;
+		opacity : 0;
+	  }
+
+	  &:nth-child(3) {
+		left      : 50%;
+		bottom    : 50%;
+		transform : translate(-50%, 50%) rotate(-45deg);
+	  }
+	}
+  }
+}

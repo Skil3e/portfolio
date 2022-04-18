@@ -1,0 +1,86 @@
+@forward "phone-defaults";
+
+$borderRadius : var(--size-sm);
+$height       : 48px;
+$bgColor      : var(--c-grey-1);
+$bgHoverColor : var(--c-grey-2);
+$textColor    : var(--c-grey-8);
+
+
+.react-tel-input {
+  font-size : unset;
+  border-radius: $borderRadius;
+
+  &:focus-within {
+	outline-offset : 2px;
+	outline        : var(--state-focus);
+  }
+
+  .form-control {
+	height           : $height;
+	padding-right    : 15px;
+	padding-top      : 10px;
+	padding-bottom   : 10px;
+	padding-left     : 60px !important;
+	width            : 100%;
+	line-height      : 1.15;
+	font-size        : inherit;
+	border-radius    : $borderRadius;
+	background-color : $bgColor;
+	border           : 1px solid $bgColor;
+	color            : $textColor;
+  }
+
+  .flag-dropdown {
+	background-color : $bgColor;
+	border           : 1px solid $bgColor;
+	transition       : background-color 250ms ease-in-out;
+
+	.selected-flag {
+	  width        : 50px;
+	  display      : flex;
+	  align-items  : center;
+	  padding-left : 13px;
+	  border-right : 1px solid $bgHoverColor;
+	  transition   : background-color 250ms ease-in-out;
+
+	  &:focus {
+		background-color : $bgHoverColor !important;
+	  }
+	}
+
+	&:hover, &:focus, &.open {
+	  background-color : $bgHoverColor;
+
+	  .selected-flag {
+		background-color : $bgHoverColor;
+	  }
+	}
+  }
+
+  .country-list {
+	background-color : $bgColor;
+	max-height       : 250px;
+
+	.country {
+	  transition : background-color 250ms ease-in-out;
+
+	  &.highlight, &:hover, &:focus {
+		background-color : $bgHoverColor;
+	  }
+	}
+
+	.search {
+	  display       : flex;
+	  align-items   : center;
+	  background    : $bgHoverColor;
+	  padding-right : 10px;
+
+	  .search-box {
+		background : $bgColor;
+		border     : 1px solid $bgColor;
+		color      : $textColor;
+	  }
+	}
+  }
+}

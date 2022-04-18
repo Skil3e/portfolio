@@ -1,0 +1,12 @@
+@use "src/styles/mixins" as mx;
+
+.footer {
+  border-block-start : 1px solid var(--c-bg-0);
+}
+
+.footer__copyright {
+  display        : flex;
+  align-items    : center;
+  height         : var(--size-header);
+  padding-inline : var(--size-md);
+}

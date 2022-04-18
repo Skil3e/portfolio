@@ -1,0 +1,44 @@
+.btn {
+  cursor : pointer;
+
+
+  &:disabled {
+	cursor  : not-allowed;
+	opacity : .65;
+  }
+
+  &:not(.empty) {
+	display       : inline-flex;
+	border        : 1px solid transparent;
+	font-size     : var(--font-size--p);
+	border-radius : var(--size-xxl);
+	font-weight   : bold;
+  }
+
+  &--block {
+	display : flex;
+  }
+
+  &.primary {
+	padding-inline   : var(--size-lg);
+	padding-block    : var(--size-sm);
+	background-color : var(--c-accent);
+	color            : var(--c-on-accent);
+	transition       : background-color var(--transition-duration) ease-in-out;
+
+	&:hover {
+	  background-color : var(--c-accent-hover);
+	}
+  }
+
+  &.secondary {
+	padding-inline : var(--size-lg);
+	padding-block  : var(--size-sm);
+  }
+
+  &.minimal {
+  }
+
+}
+
+

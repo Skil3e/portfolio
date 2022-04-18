@@ -1,0 +1,11 @@
+.language-toggle {
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  padding-inline  : var(--size-md);
+  color           : var(--c-text);
+
+  svg {
+	margin-inline-end : var(--size-sm);
+  }
+}

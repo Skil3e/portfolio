@@ -1,0 +1,13 @@
+$phone : 75em;
+
+@mixin mobile {
+  @media (max-width : $phone) {
+	@content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width : $phone) {
+	@content;
+  }
+}

@@ -1,0 +1,28 @@
+:is(.visually-hidden, .sr-only) {
+  display     : inline-block;
+  inline-size : 0;
+  block-size  : 0;
+  overflow    : hidden;
+}
+
+.flow > :where(:not(:first-child)) {
+  margin-block-start : var(--flow-space, var(--size-lg));
+}
+
+.text--outline {
+  -webkit-text-stroke : .01em var(--c-text);
+  color               : transparent;
+
+  &::selection {
+	background-color : var(--c-accent);
+	color            : var(--c-text);
+  }
+}
+
+.text--c-accent {
+  color : var(--c-accent);
+}
+
+.font--display {
+  font-family : var(--font-type-display);
+}
