@@ -7,20 +7,7 @@
   Manos Menexis Portfolio Website
 </h1>
 
-@types/node@latest 
-@types/react@latest 
-gatsby@latest 
-gatsby-plugin-image@latest 
-gatsby-plugin-manifest@latest 
-gatsby-plugin-react-helmet@latest 
-gatsby-plugin-sass@latest 
-gatsby-plugin-sharp@latest 
-gatsby-plugin-sitemap@latest 
-gatsby-source-filesystem@latest 
-gatsby-transformer-sharp@latest 
-react-hook-form@latest 
-sass@latest 
-typescript@latest 
-
-react@latest
-react-dom@latest
+react
+react-dom
+@types/react
+@types/react-dom

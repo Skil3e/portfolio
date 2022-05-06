@@ -100,7 +100,7 @@ export const query = graphql`    {
     profilePic: file(relativePath: {eq: "avatar-duotone.png"}) {
         relativePath
         childImageSharp {
-            gatsbyImageData(width: 320,placeholder: NONE)
+            gatsbyImageData(width: 320)
         }
     }
 }`
