@@ -1,0 +1,8 @@
+@use "src/styles/mixins" as mx;
+.section-spacing {
+  padding-inline : var(--size-xl);
+  margin-block : var(--size-xl);
+  @include mx.mobile() {
+    padding-inline   : var(--size-lg);
+  }
+}

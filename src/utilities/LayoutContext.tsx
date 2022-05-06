@@ -71,7 +71,7 @@ export const LayoutContext = createContext<LayoutContextType>( {
     }
 } )
 
-export const LayoutContextProvider: FC = ( { children } ) => {
+export const LayoutContextProvider: FC<React.PropsWithChildren<unknown>> = ( { children } ) => {
     const [ state, dispatch ] = useReducer( layoutReducer, {
         isMobile     : false,
         isSidebarOpen: false

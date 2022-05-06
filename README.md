@@ -7,7 +7,4 @@
   Manos Menexis Portfolio Website
 </h1>
 
-react
-react-dom
-@types/react
-@types/react-dom
+react@latest react-dom@latest @types/react@latest @types/react-dom@latest 

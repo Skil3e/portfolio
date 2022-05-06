@@ -1,12 +1,9 @@
 @use "src/styles/mixins" as mx;
 
 section.home-section {
-  display        : flex;
-  padding-inline : var(--size-xl);
-  margin-block   : var(--size-xl);
+  display : flex;
   @include mx.mobile() {
 	--size-container : 55rem;
-	padding-inline   : var(--size-lg);
 	flex-direction   : column;
 	gap              : var(--size-lg);
   }
@@ -136,22 +133,22 @@ section.home-section {
 // Experience
 //-------------------------------------------------------------
 .experience {
-  --size-icon : 10rem;
-  display     : flex;
-  gap         : var(--size-xxl);
+  display : flex;
+  gap     : var(--size-xxl);
 }
 
-.experience__title {
+.noodle__title {
+  --size-noodle      : 10rem;
   position           : relative;
   margin-block-start : calc(var(--size-lg) * 1.25);
   @include mx.desktop() {
-	padding-inline-start : calc(var(--size-icon) / 2);
+	padding-inline-start : calc(var(--size-noodle) / 2);
   }
 }
 
-.experience__noodle {
+.noodle__noodle {
   position : absolute;
-  width    : var(--size-icon);
+  width    : var(--size-noodle);
   top      : calc(var(--size-lg) * -1.25);
   left     : 0;
 }

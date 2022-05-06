@@ -4,7 +4,7 @@ interface IFooter {
 
 }
 
-const Footer: FC<IFooter> = () => {
+const Footer: FC<React.PropsWithChildren<IFooter>> = () => {
     return (
         <footer className={ "footer" }>
             <div className={ "footer__copyright" }>© { new Date().getFullYear() } ManosM</div>

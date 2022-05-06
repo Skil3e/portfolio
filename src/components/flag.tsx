@@ -7,7 +7,7 @@ interface IFlags {
     height?: number
 }
 
-export const Flag: FC<IFlags> = ( { onClick, className, locale, height = 24 } ) => {
+export const Flag: FC<React.PropsWithChildren<IFlags>> = ( { onClick, className, locale, height = 24 } ) => {
     return (
         <svg height={ height } className={ className } xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" onClick={ onClick }>
             { locale === "el" ? <>

@@ -10,7 +10,7 @@ interface IBaseLayout {
     staggerChildren?: number
 }
 
-const BaseLayout: FC<IBaseLayout> = ( { children, title, description, image, type, staggerChildren = .2 } ) => {
+const BaseLayout: FC<React.PropsWithChildren<IBaseLayout>> = ( { children, title, description, image, type, staggerChildren = .2 } ) => {
     const container = {
         hidden: {
             opacity: 0,

@@ -12,7 +12,7 @@ interface IHeadMeta {
     type?: "website"
 }
 
-const HeadMeta: FC<IHeadMeta> = ( { title, description, image, type, children } ) => {
+const HeadMeta: FC<React.PropsWithChildren<IHeadMeta>> = ( { title, description, image, type, children } ) => {
     const { ogImage, site: { siteMetadata } } = useStaticQuery(
         graphql`
             query {

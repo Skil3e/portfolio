@@ -1,3 +1,5 @@
+@forward "spacing";
+
 :is(.visually-hidden, .sr-only) {
   display     : inline-block;
   inline-size : 0;

@@ -1,0 +1,38 @@
+.project-summary-grid {
+  margin-block-start    : var(--size-xl);
+  display               : grid;
+  grid-template-columns : repeat(auto-fit, minmax(350px, 1fr));
+  gap                   : var(--size-lg);
+}
+
+.project-summary__link {
+  display          : block;
+  background-color : var(--c-grey-8);
+  border-radius    : var(--size-sm);
+  overflow         : hidden;
+
+  text-decoration  : none;
+  color            : var(--c-accent);
+
+  &:hover {
+	.project-summary__image {
+	  filter    : grayscale(0);
+	  transform : scale(1.05);
+	}
+  }
+}
+
+.project-summary__image {
+  transition       : filter var(--transition-duration), transform var(--transition-duration);
+  transform-origin : bottom;
+  filter           : grayscale(1);
+}
+
+.project-summary__info {
+  padding : var(--size-md);
+}
+
+.project-summary__title {
+  text-align : center;
+  font-size  : var(--font-size-p);
+}

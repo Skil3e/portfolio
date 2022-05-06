@@ -7,7 +7,7 @@ type NotFoundContext = {
     locale: string
 }
 
-const NotFound: FC<PageProps<NotFoundData, NotFoundContext>> = ( {} ) => {
+const NotFound: FC<React.PropsWithChildren<PageProps<NotFoundData, NotFoundContext>>> = ( {} ) => {
     return (
         <BaseLayout>
             <h1>Not Found</h1>

@@ -119,7 +119,7 @@ interface PhoneInputWrapperProps {
     control: any
 }
 
-export const PhoneInputWrapper: FunctionComponent<PhoneInputWrapperProps> = ( { name, errors, className, label, control } ) => {
+export const PhoneInputWrapper: FunctionComponent<React.PropsWithChildren<PhoneInputWrapperProps>> = ( { name, errors, className, label, control } ) => {
     const labelCls = classNames( "input__label" );
     return (
         <div className={ classNames( "input__wrapper", className ) }>

@@ -8,7 +8,7 @@ interface IHeader {
 
 }
 
-const Header: FC<IHeader> = () => {
+const Header: FC<React.PropsWithChildren<IHeader>> = () => {
     const isSidebarOpen = useIsSidebarOpen()
     const toggleSidebar = useToggleSidebar()
     return (

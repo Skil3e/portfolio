@@ -8,7 +8,7 @@ interface ILanguageToggle {
     onClick?: () => void
 }
 
-const LanguageToggle: FC<ILanguageToggle> = ( { onClick } ) => {
+const LanguageToggle: FC<React.PropsWithChildren<ILanguageToggle>> = ( { onClick } ) => {
     const { locale } = useLocalization()
     const { pathname } = useLocation();
 
@@ -17,7 +17,7 @@ const LanguageToggle: FC<ILanguageToggle> = ( { onClick } ) => {
             const path = pathname.replace( "/el", "" )
             await navigate( path )
         } else {
-            !pathname.includes( "el/" ) && await navigate( "/el" + pathname )
+            !pathname.includes( "el/" ) && (await navigate( "/el" + pathname ))
         }
         onClick && onClick()
     }

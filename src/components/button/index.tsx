@@ -19,7 +19,7 @@ type IButton = {
     )
 
 
-const Button: FC<IButton> = ( {
+const Button: FC<React.PropsWithChildren<IButton>> = ( {
                                   className,
                                   to,
                                   onClick,

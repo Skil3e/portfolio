@@ -3,25 +3,30 @@ import { graphql, PageProps } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image"
 import { motion } from "framer-motion";
 import { BaseLayout } from "@layouts";
-import { Button } from "@components";
-import { TypeImage } from "@types";
+import { Button, Container, ProjectSummary } from "@components";
 import experience from "@data/experience.json"
 import skills from "@data/skills.json"
 import Arrows from "@icons/arrows.svg"
 import Waves from "@icons/waves.svg"
 import Noodle from "@icons/noodle.svg"
+import { TypeImage, TypeProject } from "@types";
 
 type IndexData = {
     profilePic: TypeImage
+    allWebsiteProjects: {
+        nodes: {
+            projects: TypeProject[]
+        }[]
+    }
 }
 type IndexContext = {
     locale: string
 }
 
-const Index: FC<PageProps<IndexData, IndexContext>> = ( { data } ) => {
+const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = ( { data } ) => {
     return (
         <BaseLayout>
-            <section className={ "home-section intro container container--lg" }>
+            <Container as={ "section" } size={ "lg" } className={ "home-section section-spacing intro" }>
 
                 <div className={ "avatar" }>
                     <GatsbyImage className={ "avatar__image-wrapper" } image={ data.profilePic.childImageSharp.gatsbyImageData } alt={ "Manos Menexis" }/>
@@ -63,19 +68,19 @@ const Index: FC<PageProps<IndexData, IndexContext>> = ( { data } ) => {
 
                 </div>
 
-            </section>
+            </Container>
 
-            <section className={ "home-section experience container container--lg" }>
+            <Container as={ "section" } size={ "lg" } className={ "home-section section-spacing experience" }>
 
-                <motion.h2 className={ "experience__title text--c-accent" } initial={ { opacity: 0, x: 30 } } whileInView={ { opacity: 1, x: 0 } } viewport={ { margin: "0px 0px -150px 0px" } }>
-                    <Noodle className={ "experience__noodle" }/>
+                <motion.h2 className={ "noodle__title text--c-accent" } initial={ { opacity: 0, x: 30 } } whileInView={ { opacity: 1, x: 0 } } viewport={ { margin: "0px 0px -150px 0px", once: true } }>
+                    <Noodle className={ "noodle__noodle" }/>
                     Experience
                 </motion.h2>
 
-                <motion.div className={ "experience__timeline" } initial={ { opacity: 0, x: -30 } } whileInView={ { opacity: 1, x: 0 } } viewport={ { margin: "0px 0px -250px 0px" } }>
+                <motion.div className={ "experience__timeline" } initial={ { opacity: 0, x: -30 } } whileInView={ { opacity: 1, x: 0 } } viewport={ { margin: "0px 0px -250px 0px", once: true } }>
                     { experience.map( xp => {
                         return (
-                            <motion.div key={ xp.id } className={ "experience__item flow" } initial={ { opacity: 0, scale: .9, y: 50, transformOrigin: "left" } } whileInView={ { opacity: 1, scale: 1, y: 0 } } viewport={ { margin: "0px 0px -250px 0px" } }>
+                            <motion.div key={ xp.id } className={ "experience__item flow" } initial={ { opacity: 0, scale: .9, y: 50, transformOrigin: "left" } } whileInView={ { opacity: 1, scale: 1, y: 0, } } viewport={ { margin: "0px 0px -250px 0px", once: true } }>
                                 <p className={ "experience__item__date" }>{ xp.from } - { xp.to }</p>
                                 <h3 className={ "experience__item__company text--c-accent" }>{ xp.company }</h3>
                                 <p className={ "experience__item__title" }>{ xp.title }</p>
@@ -84,12 +89,19 @@ const Index: FC<PageProps<IndexData, IndexContext>> = ( { data } ) => {
                     } ) }
                 </motion.div>
 
-            </section>
+            </Container>
 
-            <section className={ "home-section projects container container--lg" }>
-                <h2 className={ "text--c-accent" }>Projects</h2>
-
-            </section>
+            <Container as={ "section" } size={ "lg" } className={ "section-spacing projects" }>
+                <h2 className={ "noodle__title text--c-accent" }>
+                    <Noodle className={ "noodle__noodle" }/>
+                    Projects
+                </h2>
+                <ul className={ "project-summary-grid" } role={ "list" }>
+                    { data.allWebsiteProjects.nodes[0].projects.map( project => (
+                        <ProjectSummary key={ project.id } project={ project }/>
+                    ) ) }
+                </ul>
+            </Container>
         </BaseLayout>
     )
 }
@@ -101,6 +113,31 @@ export const query = graphql`    {
         relativePath
         childImageSharp {
             gatsbyImageData(width: 320)
+        }
+    }
+    allWebsiteProjects: allContentfulProjectCategories(
+        filter: {contentful_id: {eq: "2I4XBTdyqkBWQL1mVTqssQ"}, node_locale: {eq: "en-US"}}
+    ) {
+        nodes {
+            projects {
+                id
+                title
+                websiteUrl
+                featureImage {
+                    localFile {
+                        childImageSharp {
+                            gatsbyImageData(layout: FULL_WIDTH)
+                        }
+                    }
+                }
+                introImage {
+                    localFile {
+                        childImageSharp {
+                            gatsbyImageData(layout: FULL_WIDTH)
+                        }
+                    }
+                }
+            }
         }
     }
 }`

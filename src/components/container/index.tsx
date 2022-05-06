@@ -1,21 +1,21 @@
-import React, { HTMLAttributes } from "react";
+import React, { ComponentPropsWithoutRef, ElementType } from "react";
 import classNames from "classnames";
 
-interface IContainer extends HTMLAttributes<HTMLDivElement> {
+interface IContainer<T extends ElementType> {
+    as?: T
     removePaddingX?: true
     removePaddingY?: true
-    size?: "lg"
+    size?: "small" | "lg"
 }
 
-
-const Container = React.forwardRef( ( props: IContainer, ref?: React.Ref<HTMLDivElement> ) => {
-    const { children, className, removePaddingX, removePaddingY, size, ...rest } = props
+const Container = <T extends ElementType = "div">( { as, children, ...props }: IContainer<T> & ComponentPropsWithoutRef<T> ) => {
+    const Component = as || "div"
+    const { className, removePaddingX, removePaddingY, size, ...rest } = props
     return (
-        <div { ...rest } ref={ ref } className={ classNames( "container", size && `container--${ size }`, removePaddingX ? "" : "container--px", removePaddingY ? "" : "container--py", className ) }>
+        <Component { ...rest } className={ classNames( "container", size && `container--${ size }`, removePaddingX ? "" : "container--px", removePaddingY ? "" : "container--py", className ) }>
             { children }
-        </div>
+        </Component>
     )
-} )
-
+}
 
 export default Container
