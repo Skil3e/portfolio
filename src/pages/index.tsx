@@ -49,8 +49,10 @@ const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = (
                     <div className={ "intro__info" }>
 
                         <motion.div className={ "intro__about flow" } variants={ introAboutVariants }>
-                            <p>I'm a 30 years old Creative Director & Frontend Developer from Athens (Greece). I love good design quality with functionality and i have an obsession for detail. I like to combine my knowledge, on product / graphic design, web development, music and video to get a result as complete and great as possible.</p>
-                            <p>I consider accessibility and best practices very important and I try to incorporate them as much as possible. Brand consistency is also something that I am really passionate about because it elevates trust, recognition and memorability of the products and/or services provided.</p>
+                            <p>I'm a 30 years old Creative Director & Frontend Developer from Athens (Greece). I love good design quality with functionality and i have an obsession for detail. I like
+                                to combine my knowledge, on product / graphic design, web development, music and video to get a result as complete and great as possible.</p>
+                            <p>I consider accessibility and best practices very important and I try to incorporate them as much as possible. Brand consistency is also something that I am really
+                                passionate about because it elevates trust, recognition and memorability of the products and/or services provided.</p>
                             <p>I love what i do and I am committed to provide the best possible solution to creative problems while creating memorable user experiences.</p>
                             <Button look={ "primary" }>Learn more</Button>
                         </motion.div>
@@ -72,33 +74,54 @@ const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = (
 
             <Container as={ "section" } size={ "lg" } className={ "home-section section-spacing experience" }>
 
-                <motion.h2 className={ "noodle__title text--c-accent" } initial={ { opacity: 0, x: 30 } } whileInView={ { opacity: 1, x: 0 } } viewport={ { margin: "0px 0px -150px 0px", once: true } }>
+                <motion.h2 className={ "noodle__title text--c-accent" } initial={ { opacity: 0, x: 30 } } whileInView={ { opacity: 1, x: 0 } }
+                           viewport={ { margin: "0px 0px -150px 0px", once: true } }>
                     <Noodle className={ "noodle__noodle" }/>
                     Experience
                 </motion.h2>
 
-                <motion.div className={ "experience__timeline" } initial={ { opacity: 0, x: -30 } } whileInView={ { opacity: 1, x: 0 } } viewport={ { margin: "0px 0px -250px 0px", once: true } }>
+                <motion.ul
+                    className={ "experience__timeline" } role={ "list" }
+                    initial={ { opacity: 0, x: -30 } }
+                    whileInView={ { opacity: 1, x: 0 } }
+                    viewport={ { margin: "0px 0px -250px 0px", once: true } }
+                >
                     { experience.map( xp => {
                         return (
-                            <motion.div key={ xp.id } className={ "experience__item flow" } initial={ { opacity: 0, scale: .9, y: 50, transformOrigin: "left" } } whileInView={ { opacity: 1, scale: 1, y: 0, } } viewport={ { margin: "0px 0px -250px 0px", once: true } }>
+                            <motion.li key={ xp.id } className={ "experience__item flow" }
+                                       initial={ { opacity: 0, scale: .9, y: 50, transformOrigin: "left" } }
+                                       whileInView={ { opacity: 1, scale: 1, y: 0, } }
+                                       viewport={ { margin: "0px 0px -250px 0px", once: true } }
+                            >
                                 <p className={ "experience__item__date" }>{ xp.from } - { xp.to }</p>
                                 <h3 className={ "experience__item__company text--c-accent" }>{ xp.company }</h3>
                                 <p className={ "experience__item__title" }>{ xp.title }</p>
-                            </motion.div>
+                            </motion.li>
                         )
                     } ) }
-                </motion.div>
+                </motion.ul>
 
             </Container>
 
             <Container as={ "section" } size={ "lg" } className={ "section-spacing projects" }>
-                <h2 className={ "noodle__title text--c-accent" }>
+                <motion.h2
+                    className={ "noodle__title text--c-accent" }
+                    initial={ { opacity: 0, x: 30 } }
+                    whileInView={ { opacity: 1, x: 0 } }
+                    viewport={ { margin: "0px 0px -150px 0px", once: true } }
+                >
                     <Noodle className={ "noodle__noodle" }/>
                     Projects
-                </h2>
+                </motion.h2>
                 <ul className={ "project-summary-grid" } role={ "list" }>
                     { data.allWebsiteProjects.nodes[0].projects.map( project => (
-                        <ProjectSummary key={ project.id } project={ project }/>
+                        <motion.li key={ project.id }
+                                   initial={ { opacity: 0, y: 50 } }
+                                   whileInView={ { opacity: 1, y: 0, } }
+                                   viewport={ { margin: "0px 0px -250px 0px", once: true } }
+                        >
+                            <ProjectSummary key={ project.id } project={ project }/>
+                        </motion.li>
                     ) ) }
                 </ul>
             </Container>

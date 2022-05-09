@@ -10,6 +10,8 @@
   background-color : var(--c-grey-8);
   border-radius    : var(--size-sm);
   overflow         : hidden;
+  position         : relative;
+  perspective      : 400px;
 
   text-decoration  : none;
   color            : var(--c-accent);
@@ -19,7 +21,28 @@
 	  filter    : grayscale(0);
 	  transform : scale(1.05);
 	}
+
+	.project-summary__link-icon {
+	  --scale : 1;
+	}
   }
+}
+
+.project-summary__link-icon {
+  --scale          : 0;
+  position         : absolute;
+  inset            : 0;
+  left             : 50%;
+  top              : 50%;
+  transform        : translate(-50%, -50%) scale(var(--scale));
+  z-index          : 1;
+  width            : 64px;
+  aspect-ratio     : 1 / 1;
+  padding          : var(--size-md);
+  background-color : var(--c-grey-6);
+  border-radius    : var(--size-lg);
+  transition       : transform var(--transition-duration);
+  box-shadow       : var(--shadow-1);
 }
 
 .project-summary__image {
