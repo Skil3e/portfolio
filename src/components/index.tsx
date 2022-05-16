@@ -1,4 +1,5 @@
 export { default as Button } from "./button"
+export { default as ContactForm } from "./contact-form"
 export { default as Container } from "./container"
 export { default as SEO } from "./SEO"
 export { default as Footer } from "./footer"

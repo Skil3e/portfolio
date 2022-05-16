@@ -1,6 +1,6 @@
 @use "src/styles/mixins" as mx;
 
-section.home-section {
+.home-section {
   display : flex;
   @include mx.mobile() {
 	--size-container : 55rem;
@@ -10,8 +10,10 @@ section.home-section {
 }
 
 .intro {
-  --size-icon    : 12.5rem;
-  flex-direction : row-reverse;
+  --size-icon : 12.5rem;
+  @include mx.desktop() {
+	flex-direction : row-reverse;
+  }
 
   @include mx.mobile() {
 	--size-icon : 8rem;
@@ -214,3 +216,7 @@ section.home-section {
   font-size : var(--font-size-5);
 }
 
+.get-in-touch {
+  background-color : var(--c-grey-7);
+  padding-block    : var(--size-xxl);
+}

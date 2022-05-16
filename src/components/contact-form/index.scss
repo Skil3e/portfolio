@@ -1,0 +1,20 @@
+.contact-form {
+  --flow-space       : var(--size-md);
+  margin-block-start : var(--size-xl);
+  min-height         : 50vh;
+}
+
+.contact-form__success-message {
+  display               : grid;
+  grid-template-columns : repeat(2, 1fr);
+}
+
+.grecaptcha-badge {
+  visibility : hidden;
+}
+
+.recaptcha-terms {
+  margin-block-start : var(--size-md);
+  color              : var(--c-text-dimmed);
+  font-size          : var(--font-size-small);
+}

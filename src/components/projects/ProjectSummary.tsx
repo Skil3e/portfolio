@@ -9,7 +9,7 @@ interface IProjectSummary<H extends ElementType> {
     project: TypeProject
 }
 
-const ProjectSummary = <H extends ElementType = "h3">( { as, titleAs, ...props }: IProjectSummary<H> & ComponentPropsWithoutRef<H> ) => {
+const ProjectSummary = <H extends ElementType = "h3">( { titleAs, ...props }: IProjectSummary<H> & ComponentPropsWithoutRef<H> ) => {
     const Title = titleAs || "h3"
     const { className, project } = props
 

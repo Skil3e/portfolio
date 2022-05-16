@@ -1,15 +1,15 @@
 @forward "phone-defaults";
 
 $borderRadius : var(--size-sm);
-$height       : 48px;
-$bgColor      : var(--c-grey-1);
-$bgHoverColor : var(--c-grey-2);
-$textColor    : var(--c-grey-8);
+$height       : 50.69px;
+$bgColor      : var(--c-grey-8);
+$bgHoverColor : var(--c-grey-7);
+$textColor    : var(--c-grey-1);
 
 
 .react-tel-input {
-  font-size : unset;
-  border-radius: $borderRadius;
+  font-size     : unset;
+  border-radius : $borderRadius;
 
   &:focus-within {
 	outline-offset : 2px;
@@ -35,6 +35,7 @@ $textColor    : var(--c-grey-8);
 	background-color : $bgColor;
 	border           : 1px solid $bgColor;
 	transition       : background-color 250ms ease-in-out;
+	border-radius    : $borderRadius 0 0 $borderRadius;
 
 	.selected-flag {
 	  width        : 50px;
@@ -43,6 +44,7 @@ $textColor    : var(--c-grey-8);
 	  padding-left : 13px;
 	  border-right : 1px solid $bgHoverColor;
 	  transition   : background-color 250ms ease-in-out;
+	  border-radius    : $borderRadius 0 0 $borderRadius;
 
 	  &:focus {
 		background-color : $bgHoverColor !important;

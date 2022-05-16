@@ -48,6 +48,7 @@
   }
 
   --c-orange                   : hsl(42deg 100% 49%);
+  --c-error                    : #eda5a5;
   --state-focus                : 2px dotted var(--c-grey-4);
 
   //Theme
@@ -59,7 +60,7 @@
   --c-bg-1                     : var(--c-grey-9);
   --c-bg-2                     : var(--c-grey-8);
   --c-text                     : var(--c-grey-1);
-  --c-text-dimmed              : var(--c-grey-3);
+  --c-text-dimmed              : var(--c-grey-2);
 
   // Shadows
   --shadow-1                   : rgba(0, 0, 0, 0.24) 0px 3px 8px;;

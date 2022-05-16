@@ -1,5 +1,5 @@
-/** @type {import('gatsby').GatsbyConfig} */
-require("dotenv").config()
+/** @type {import("gatsby").GatsbyConfig} */
+require("dotenv").config();
 
 module.exports = {
     trailingSlash: "always",
@@ -20,27 +20,31 @@ module.exports = {
             resolve: `gatsby-source-contentful`,
             options: {
                 spaceId: process.env.CONTENTFUL_SPACE_ID,
-                // Learn about environment variables: https://gatsby.dev/env-vars
-                accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-                downloadLocal: true
+                accessToken: process.env.NODE_ENV === "development"
+                    ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+                    : process.env.CONTENTFUL_ACCESS_TOKEN,
+                host: process.env.NODE_ENV === "development"
+                    ? `preview.contentful.com`
+                    : undefined,
+                downloadLocal: true,
             },
         },
         {
-            resolve: 'gatsby-source-filesystem',
+            resolve: "gatsby-source-filesystem",
             options: {
                 "name": "images",
-                "path": "./src/images/"
+                "path": "./src/images/",
             },
-            __key: "images"
+            __key: "images",
         },
         {
             resolve: "gatsby-plugin-react-svg",
             options: {
                 rule: {
                     include: /icons/,
-                    omitKeys: ['width', 'height', 'id', 'xmlnsDc', 'xmlnsCc', 'xmlnsRdf', 'xmlnsSvg', 'xmlnsSodipodi', 'xmlnsInkscape']
-                }
-            }
+                    omitKeys: ["width", "height", "id", "xmlnsDc", "xmlnsCc", "xmlnsRdf", "xmlnsSvg", "xmlnsSodipodi", "xmlnsInkscape"],
+                },
+            },
         },
         {
             resolve: `gatsby-theme-i18n`,
@@ -50,10 +54,10 @@ module.exports = {
             },
         },
         {
-            resolve: 'gatsby-plugin-manifest',
+            resolve: "gatsby-plugin-manifest",
             options: {
-                "icon": "src/images/avatar-duotone.png"
-            }
+                "icon": "src/images/avatar-duotone.png",
+            },
         },
-    ]
+    ],
 };

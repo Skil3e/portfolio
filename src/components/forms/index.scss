@@ -18,6 +18,10 @@
 .input__wrapper {
   position : relative;
   width    : 100%;
+
+  &--with-error .input__field {
+	outline : 1px solid var(--c-error);
+  }
 }
 
 .input__label {
@@ -38,7 +42,8 @@ textarea {
 }
 
 .input__field {
-  background-color : var(--c-grey-1);
+  background-color : var(--c-grey-8);
+  color            : var(--c-grey-1);
   min-height       : 48px;
   display          : flex;
   align-items      : center;
@@ -55,5 +60,5 @@ textarea {
 
 .input__error {
   margin-block-start : var(--size-sm);
-  color              : firebrick;
+  color              : var(--c-error);
 }

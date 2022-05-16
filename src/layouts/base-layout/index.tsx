@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Footer, Header, SEO } from "@components";
 import { motion } from "framer-motion";
+import classNames from "classnames";
 
 interface IBaseLayout {
     title?: string
@@ -8,9 +9,18 @@ interface IBaseLayout {
     image?: string
     type?: "website",
     staggerChildren?: number
+    removeHeaderPadding?: boolean
 }
 
-const BaseLayout: FC<React.PropsWithChildren<IBaseLayout>> = ( { children, title, description, image, type, staggerChildren = .2 } ) => {
+const BaseLayout: FC<React.PropsWithChildren<IBaseLayout>> = ( {
+                                                                   children,
+                                                                   title,
+                                                                   description,
+                                                                   image,
+                                                                   type,
+                                                                   staggerChildren = .2,
+                                                                   removeHeaderPadding,
+                                                               } ) => {
     const container = {
         hidden: {
             opacity: 0,
@@ -19,17 +29,19 @@ const BaseLayout: FC<React.PropsWithChildren<IBaseLayout>> = ( { children, title
             opacity   : 1,
             transition: {
                 staggerChildren,
-            }
-        }
-    }
+            },
+        },
+    };
     return (
         <>
-            <SEO title={ title } description={ description } type={ type } image={ image }/>
-            <Header/>
-            <motion.main className={ "base-layout__main" } variants={ container } initial={ "hidden" } animate={ "show" } whileInView={ "inView" } exit={ "hidden" }>{ children }</motion.main>
-            <Footer/>
+            <SEO title={ title } description={ description } type={ type } image={ image } />
+            <Header />
+            <motion.main className={ classNames( "base-layout__main", removeHeaderPadding && "remove-padding" ) } variants={ container } initial={ "hidden" } animate={ "show" }
+                         whileInView={ "inView" }
+                         exit={ "hidden" }>{ children }</motion.main>
+            <Footer />
         </>
-    )
-}
+    );
+};
 
-export default BaseLayout
+export default BaseLayout;

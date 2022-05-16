@@ -1,5 +1,5 @@
 @use "src/styles/mixins" as mx;
 
-.base-layout__main {
+.base-layout__main:not(.remove-padding) {
   padding-block-start : var(--size-header);
 }

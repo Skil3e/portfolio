@@ -6,16 +6,16 @@ import { Controller } from "react-hook-form";
 import t from "@i18n";
 
 export interface InputWrapperProps extends HTMLAttributes<HTMLDivElement> {
-    name?: string
-    label?: string
-    errors?: any
-    labelClassName?: string
+    name?: string;
+    label?: string;
+    errors?: any;
+    labelClassName?: string;
 }
 
 const InputWrapper = forwardRef(
     ( props: InputWrapperProps, ref?: Ref<HTMLDivElement> ) => {
         const { label, errors, name, children, labelClassName, className, ...rest } = props;
-        const cls = classNames( "input__wrapper", className );
+        const cls = classNames( "input__wrapper", className, errors && name && errors[name] && "input__wrapper--with-error" );
         const labelCls = classNames( "input__label", labelClassName );
         return (
             <>
@@ -26,21 +26,21 @@ const InputWrapper = forwardRef(
                 </div>
 
             </>
-        )
-    } )
+        );
+    } );
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    wrapperClassName?: string
-    label?: string
-    errors?: any
-    labelClassName?: string
-    type?: 'text' | 'number' | 'tel' | 'email' | 'password' | 'datetime-local' | 'file' | 'month' | 'search' | 'time' | 'url' | 'week' | 'date'
+    wrapperClassName?: string;
+    label?: string;
+    errors?: any;
+    labelClassName?: string;
+    type?: "text" | "number" | "tel" | "email" | "password" | "datetime-local" | "file" | "month" | "search" | "time" | "url" | "week" | "date";
 }
 
 export const Input = forwardRef(
     ( props: InputProps, ref?: Ref<HTMLInputElement> ) => {
-        const { type, label, errors, className, wrapperClassName, labelClassName, name, ...rest } = props
-        const inputCls = classNames( "input__field", className )
+        const { type, label, errors, className, wrapperClassName, labelClassName, name, ...rest } = props;
+        const inputCls = classNames( "input__field", className );
         return (
             <InputWrapper className={ wrapperClassName }
                           name={ name }
@@ -48,10 +48,10 @@ export const Input = forwardRef(
                           errors={ errors }
                           labelClassName={ labelClassName }
             >
-                <input { ...rest } ref={ ref } className={ inputCls } type={ type } id={ name } name={ name }/>
+                <input { ...rest } ref={ ref } className={ inputCls } type={ type } id={ name } name={ name } />
             </InputWrapper>
-        )
-    } )
+        );
+    } );
 
 export type Option = {
     value: string | number
@@ -59,18 +59,18 @@ export type Option = {
 }
 
 export interface SelectProps extends InputHTMLAttributes<HTMLSelectElement> {
-    wrapperClassName?: string
-    label?: string
-    errors?: any
-    customErrors?: any
-    options: Option[]
-    labelClassName?: string
+    wrapperClassName?: string;
+    label?: string;
+    errors?: any;
+    customErrors?: any;
+    options: Option[];
+    labelClassName?: string;
 }
 
 export const Select = React.forwardRef(
     ( props: SelectProps, ref?: React.Ref<HTMLSelectElement> ) => {
-        const { id, label, errors, customErrors, className, wrapperClassName, options, labelClassName, name, ...rest } = props
-        const inputCls = classNames( "input__field", className )
+        const { id, label, errors, customErrors, className, wrapperClassName, options, labelClassName, name, ...rest } = props;
+        const inputCls = classNames( "input__field", className );
         return (
             <InputWrapper className={ wrapperClassName }
                           name={ name }
@@ -82,20 +82,20 @@ export const Select = React.forwardRef(
                     { options.map( option => <option key={ option.value } value={ option.value }>{ option.label ? option.label : option.value }</option> ) }
                 </select>
             </InputWrapper>
-        )
-    } )
+        );
+    } );
 
 export interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-    wrapperClassName?: string
-    label?: string
-    errors?: any
-    labelClassName?: string
+    wrapperClassName?: string;
+    label?: string;
+    errors?: any;
+    labelClassName?: string;
 }
 
 export const TextArea = forwardRef(
     ( props: TextAreaProps, ref?: Ref<HTMLTextAreaElement> ) => {
-        const { label, errors, className, wrapperClassName, labelClassName, name, ...rest } = props
-        const inputCls = classNames( "input__field", className )
+        const { label, errors, className, wrapperClassName, labelClassName, name, ...rest } = props;
+        const inputCls = classNames( "input__field", className );
         return (
             <InputWrapper className={ wrapperClassName }
                           name={ name }
@@ -103,20 +103,20 @@ export const TextArea = forwardRef(
                           errors={ errors }
                           labelClassName={ labelClassName }
             >
-                <textarea { ...rest } ref={ ref } className={ inputCls } id={ name } name={ name }/>
+                <textarea { ...rest } ref={ ref } className={ inputCls } id={ name } name={ name } />
             </InputWrapper>
-        )
-    } )
+        );
+    } );
 
 interface PhoneInputWrapperProps {
-    name: string
-    label: string
-    className?: string
-    textArea?: boolean
-    disabled?: boolean
-    errors: { [key: string]: { message?: string } } | undefined
-    onChange?: ( value: string ) => void
-    control: any
+    name: string;
+    label: string;
+    className?: string;
+    textArea?: boolean;
+    disabled?: boolean;
+    errors: { [key: string]: { message?: string } } | undefined;
+    onChange?: ( value: string ) => void;
+    control: any;
 }
 
 export const PhoneInputWrapper: FunctionComponent<React.PropsWithChildren<PhoneInputWrapperProps>> = ( { name, errors, className, label, control } ) => {
@@ -131,7 +131,7 @@ export const PhoneInputWrapper: FunctionComponent<React.PropsWithChildren<PhoneI
                     return (
                         <PhoneInput
                             enableSearch
-                            country={ 'gr' }
+                            country={ "gr" }
                             onChange={ ( _, __, ___, formattedValue ) => onChange( formattedValue ) }
                             value={ value ?? "+30" }
                             inputProps={ { id: name, name: name } }
@@ -142,6 +142,6 @@ export const PhoneInputWrapper: FunctionComponent<React.PropsWithChildren<PhoneI
             />
             { errors && name && errors[name] && <div className={ "input__error" }>{ errors[name].message }</div> }
         </div>
-    )
+    );
 };
 

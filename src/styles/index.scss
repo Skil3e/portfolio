@@ -20,6 +20,7 @@ body {
   background-color : var(--c-bg-1);
   color            : var(--c-text);
   line-height      : 1.6;
+  accent-color     : var(--c-accent);
 }
 
 main {
@@ -31,6 +32,15 @@ main {
 	font-size   : var(--font-size-#{$i});
 	font-weight : 700;
 	line-height : 1;
+  }
+}
+
+a:not([class]) {
+  color      : var(--c-accent);
+  transition : color 250ms ease-in-out;
+
+  &:hover {
+	color : var(--c-accent-hover);
   }
 }
 

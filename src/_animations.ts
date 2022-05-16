@@ -1,7 +1,7 @@
 const transition = {
     duration: .4,
-    ease    : "easeInOut"
-}
+    ease    : "easeInOut",
+};
 
 export const fade = {
     hidden: {
@@ -9,31 +9,56 @@ export const fade = {
     },
     show  : {
         opacity: 1,
-        transition
+        transition,
     },
-    inView: {}
-}
+    inView: {},
+};
 
 export const fadeUp = {
     hidden: {
         opacity: 0,
-        y      : 30
+        y      : 30,
     },
     show  : {
         opacity: 1,
         y      : 0,
-        transition
-    }
-}
+        transition,
+    },
+};
 
 export const fadeDown = {
     hidden: {
         opacity: 0,
-        y      : -30
+        y      : -30,
     },
     show  : {
         opacity: 1,
         y      : 0,
-        transition
-    }
-}
+        transition,
+    },
+};
+
+export const fadeLeft = {
+    hidden: {
+        opacity: 0,
+        x      : -30,
+    },
+    show  : {
+        opacity: 1,
+        x      : 0,
+        transition,
+    },
+};
+
+export const fadeRight = {
+    hidden: {
+        opacity: 0,
+        x      : 30,
+    },
+    show  : {
+        opacity: 1,
+        x      : 0,
+        transition,
+    },
+};
+

@@ -9,23 +9,23 @@ interface IHeader {
 }
 
 const Header: FC<React.PropsWithChildren<IHeader>> = () => {
-    const isSidebarOpen = useIsSidebarOpen()
-    const toggleSidebar = useToggleSidebar()
+    const isSidebarOpen = useIsSidebarOpen();
+    const toggleSidebar = useToggleSidebar();
     return (
         <header className={ "main-header" }>
-            <LanguageToggle/>
+            <LanguageToggle />
             <Button className={ "sidebar__toggle" } look={ "empty" } onClick={ toggleSidebar } data-state={ isSidebarOpen ? "open" : "closed" }>
                 <span className={ "sr-only" }>Toggle Menu</span>
-                <MenuToggle isOpen={ isSidebarOpen }/>
+                <MenuToggle isOpen={ isSidebarOpen } />
             </Button>
         </header>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;
 
 export interface MenuToggleProps extends HTMLAttributes<HTMLDivElement> {
-    isOpen: boolean
+    isOpen: boolean;
 }
 
 const MenuToggle = React.forwardRef(
@@ -34,9 +34,9 @@ const MenuToggle = React.forwardRef(
         const className = classNames( "menu-toggle", props.className, (isOpen ? " menu-toggle--open" : "") );
         return (
             <div { ...rest } ref={ ref } className={ className }>
-                <div className={ `menu-toggle__dot bg--text` }/>
-                <div className={ `menu-toggle__dot bg--text` }/>
-                <div className={ `menu-toggle__dot bg--text` }/>
+                <div className={ `menu-toggle__dot bg--text` } />
+                <div className={ `menu-toggle__dot bg--text` } />
+                <div className={ `menu-toggle__dot bg--text` } />
             </div>
-        )
-    } )
+        );
+    } );
