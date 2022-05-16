@@ -10,6 +10,7 @@ import Arrows from "@icons/arrows.svg";
 import Waves from "@icons/waves.svg";
 import Noodle from "@icons/noodle.svg";
 import { TypeImage, TypeProject } from "@types";
+import Experience from "../components/experience";
 
 type IndexData = {
     profilePic: TypeImage
@@ -68,33 +69,14 @@ const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = (
             </Container>
 
             <section className={ "section--bg-2" } aria-label={ "Experience" }>
-                <Container size={ "lg" } className={ "home-section experience" } removePaddingY>
+                <Container className={ "home-section experience" } removePaddingY>
                     <motion.h2 className={ "noodle__title text--c-accent" } initial={ { opacity: 0, x: 30 } } whileInView={ { opacity: 1, x: 0 } }
                                viewport={ { margin: "0px 0px -150px 0px", once: true } }>
                         <Noodle className={ "noodle__noodle" } />
                         Experience
                     </motion.h2>
 
-                    <motion.ul
-                        className={ "experience__timeline" } role={ "list" }
-                        initial={ { opacity: 0, x: -30 } }
-                        whileInView={ { opacity: 1, x: 0 } }
-                        viewport={ { margin: "0px 0px -250px 0px", once: true } }
-                    >
-                        { experience.map( xp => {
-                            return (
-                                <motion.li key={ xp.id } className={ "experience__item flow" }
-                                           initial={ { opacity: 0, scale: .9, y: 50, transformOrigin: "left" } }
-                                           whileInView={ { opacity: 1, scale: 1, y: 0 } }
-                                           viewport={ { margin: "0px 0px -250px 0px", once: true } }
-                                >
-                                    <p className={ "experience__item__date" }>{ xp.from } - { xp.to }</p>
-                                    <h3 className={ "experience__item__company text--c-accent" }>{ xp.company }</h3>
-                                    <p className={ "experience__item__title" }>{ xp.title }</p>
-                                </motion.li>
-                            );
-                        } ) }
-                    </motion.ul>
+                    <Experience experience={ experience } />
                 </Container>
             </section>
 
@@ -123,7 +105,7 @@ const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = (
             </Container>
 
             <section className={ "section--bg-2" } id={ "contact" } aria-label={ "Contact" }>
-                <Container size={ "lg" } removePaddingY>
+                <Container removePaddingY>
                     <motion.h2
                         className={ "noodle__title text--c-accent" }
                         initial={ { opacity: 0, x: 30 } }

@@ -1,3 +1,4 @@
+@use "src/styles/mixins" as mx;
 @forward "spacing";
 
 :is(.visually-hidden, .sr-only) {
@@ -29,3 +30,19 @@
   font-family : var(--font-type-display);
 }
 
+
+.noodle__title {
+  --size-noodle      : 10rem;
+  position           : relative;
+  margin-block-start : calc(var(--size-lg) * 1.25);
+  @include mx.desktop() {
+	padding-inline-start : calc(var(--size-noodle) / 2);
+  }
+}
+
+.noodle__noodle {
+  position : absolute;
+  width    : var(--size-noodle);
+  top      : calc(var(--size-lg) * -1.25);
+  left     : 0;
+}

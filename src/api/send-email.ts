@@ -61,5 +61,5 @@ export async function getRecaptchaServer( recaptcha_response: string ): Promise<
     const result = await fetch( reCaptchaUrl, {
         method: "POST",
     } );
-    return result.json();
+    return await result.json() as RecaptchaResponse;
 }

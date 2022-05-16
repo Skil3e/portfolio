@@ -1,0 +1,67 @@
+@use "src/styles/mixins" as mx;
+
+.experience {
+  display : flex;
+  gap     : var(--size-xxl);
+}
+
+.experience__timeline {
+  --dot-size          : 1rem;
+  --dot-size-start    : calc(var(--dot-size) / 2);
+  padding-block       : var(--size-lg);
+  margin-inline-start : var(--dot-size);
+  margin-block-start  : var(--size-lg);
+  border-inline-start : 2px solid var(--c-bg-2);
+  position            : relative;
+
+  &::before, &::after {
+	content          : "";
+	position         : absolute;
+	left             : calc((var(--dot-size-start) / -2) - 1px);
+	width            : var(--dot-size-start);
+	height           : var(--dot-size-start);
+	transform        : rotate(45deg);
+	background-color : var(--c-accent);
+  }
+
+  &::before {
+	top : 0;
+  }
+
+  &::after {
+	bottom : 0;
+  }
+
+}
+
+.experience__item {
+  --line-width         : 4rem;
+  --dot-size           : 1rem;
+  --flow-space         : var(--size-sm);
+  padding-block        : var(--size-lg);
+  padding-inline-start : var(--line-width);
+  position             : relative;
+
+  &::after {
+	content  : "";
+	position : absolute;
+  }
+
+  &::after {
+	left             : calc((var(--dot-size) / -2) - 1px);
+	top              : 43%;
+	width            : var(--dot-size);
+	height           : var(--dot-size);
+	transform        : rotate(45deg);
+	background-color : var(--c-accent);
+  }
+}
+
+.experience__item__date {
+  font-size : var(--font-size-small);
+  color     : var(--c-text-dimmed);
+}
+
+.experience__item__company {
+  font-size : var(--font-size-5);
+}
