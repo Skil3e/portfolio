@@ -8,11 +8,11 @@ import experience from "@data/experience.json";
 import skills from "@data/skills.json";
 import Arrows from "@icons/arrows.svg";
 import Waves from "@icons/waves.svg";
-import Noodle from "@icons/noodle.svg";
 import { TypeImage, TypeProject } from "@types";
 import Experience from "../components/experience";
+import NoodleTitle from "../components/noodle-title";
 
-type IndexData = {
+type HomePageData = {
     profilePic: TypeImage
     allWebsiteProjects: {
         nodes: {
@@ -20,12 +20,11 @@ type IndexData = {
         }[]
     }
 }
-type IndexContext = {
+type HomePageContext = {
     locale: string
 }
 
-const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = ( { data } ) => {
-    console.log( data.allWebsiteProjects );
+const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageContext>>> = ( { data } ) => {
     return (
         <BaseLayout removeHeaderPadding>
             <Container as={ "section" } size={ "lg" } className={ "home-section section-spacing intro" } removePaddingY aria-label={ "About Manos Menexis" }>
@@ -70,27 +69,13 @@ const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = (
 
             <section className={ "section--bg-2" } aria-label={ "Experience" }>
                 <Container className={ "home-section experience" } removePaddingY>
-                    <motion.h2 className={ "noodle__title text--c-accent" } initial={ { opacity: 0, x: 30 } } whileInView={ { opacity: 1, x: 0 } }
-                               viewport={ { margin: "0px 0px -150px 0px", once: true } }>
-                        <Noodle className={ "noodle__noodle" } />
-                        Experience
-                    </motion.h2>
-
+                    <NoodleTitle>Experience</NoodleTitle>
                     <Experience experience={ experience } />
                 </Container>
             </section>
 
             <Container as={ "section" } size={ "lg" } className={ "section-spacing projects" } removePaddingY aria-label={ "Projects" }>
-                <motion.h2
-                    className={ "noodle__title text--c-accent" }
-                    initial={ { opacity: 0, x: 30 } }
-                    whileInView={ { opacity: 1, x: 0 } }
-                    viewport={ { margin: "0px 0px -150px 0px", once: true } }
-                >
-                    <Noodle className={ "noodle__noodle" } />
-                    Projects
-                </motion.h2>
-
+                <NoodleTitle>Projects</NoodleTitle>
                 <ul className={ "project-summary-grid" } role={ "list" }>
                     { data.allWebsiteProjects.nodes[0].projects.map( project => (
                         <motion.li key={ project.id }
@@ -106,16 +91,7 @@ const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = (
 
             <section className={ "section--bg-2" } id={ "contact" } aria-label={ "Contact" }>
                 <Container removePaddingY>
-                    <motion.h2
-                        className={ "noodle__title text--c-accent" }
-                        initial={ { opacity: 0, x: 30 } }
-                        whileInView={ { opacity: 1, x: 0 } }
-                        viewport={ { margin: "0px 0px -150px 0px", once: true } }
-                    >
-                        <Noodle className={ "noodle__noodle" } />
-                        Get in touch
-                    </motion.h2>
-
+                    <NoodleTitle>Get in touch</NoodleTitle>
                     <ContactForm />
                 </Container>
             </section>
@@ -123,7 +99,7 @@ const Index: FC<React.PropsWithChildren<PageProps<IndexData, IndexContext>>> = (
     );
 };
 
-export default Index;
+export default HomePage;
 
 export const query = graphql`
     query HomepageQuery {

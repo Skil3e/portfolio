@@ -1,11 +1,11 @@
-export { default as Button } from "./button"
-export { default as ContactForm } from "./contact-form"
-export { default as Container } from "./container"
-export { default as Experience } from "./experience"
-export { default as SEO } from "./SEO"
-export { default as Footer } from "./footer"
-export { Input, Select, TextArea, PhoneInputWrapper } from "./forms"
-export { default as Header } from "./header"
-export { default as LanguageToggle } from "./language-toggle"
-export { ProjectSummary } from "./projects"
-export { default as Flag } from "./flag"
+export { default as Button } from "./button";
+export { default as ContactForm } from "./contact-form";
+export { default as Container } from "./container";
+export { default as Experience } from "./experience";
+export { default as SEO } from "./SEO";
+export { Input, Select, TextArea, PhoneInputWrapper } from "./forms";
+export { default as IconWithText } from "./icon-with-text";
+export { default as LanguageToggle } from "./language-toggle";
+export { default as NoodleTitle } from "./noodle-title";
+export { ProjectSummary } from "./projects";
+export { default as Flag } from "./flag";

@@ -1,0 +1,83 @@
+@forward "menu-toggle";
+@use "src/styles/mixins/index" as mx;
+
+.header {
+  display              : flex;
+  align-items          : center;
+  gap                  : var(--size-lg);
+  position             : fixed;
+  z-index              : 7;
+  top                  : 0;
+  left                 : 0;
+  width                : 100%;
+  height               : var(--size-header);
+  padding-inline-start : var(--size-lg);
+  transition           : background-color var(--transition-duration);
+  @include mx.desktop() {
+	padding-inline : var(--size-lg);
+  }
+
+  &--scrolled, &[data-infoopen="true"] {
+	background-color : var(--c-bg-1);
+	border-block-end : 1px solid var(--c-bg-2);
+  }
+}
+
+.header__quick-info {
+  display : flex;
+  gap     : var(--size-lg);
+
+  @include mx.desktop() {
+	margin-inline-start : auto;
+	align-items         : center;
+  }
+
+  @include mx.mobile() {
+	&:not([data-infoopen="true"]) {
+	  opacity        : 0;
+	  pointer-events : none;
+	  transform      : translateY(1rem);
+	}
+	position         : fixed;
+	right            : 0;
+	left             : 0;
+	top              : var(--size-header);
+	flex-direction   : column;
+	padding          : var(--size-lg);
+	background-color : var(--c-bg-2);
+	box-shadow       : var(--shadow-1);
+	transition       : transform var(--transition-duration), opacity var(--transition-duration);
+	opacity          : 1;
+	transform        : translateY(0);
+  }
+}
+
+.header__quick-info__toggle {
+  display             : flex;
+  align-items         : center;
+  justify-content     : center;
+  margin-inline-start : auto;
+  background-color    : var(--c-accent);
+  height              : 100%;
+  aspect-ratio        : 1 / 1;
+  @include mx.desktop {
+	display : none;
+  }
+}
+
+.header__quick-info__overlay {
+  position         : fixed;
+  inset            : 0;
+  width            : 100%;
+  height           : 100%;
+  background-color : var(--c-overlay);
+  z-index          : 4;
+  opacity          : 0;
+  pointer-events   : none;
+  transition       : opacity var(--transition-duration);
+
+  &[data-infoopen="true"] {
+	opacity        : 1;
+	pointer-events : auto;
+  }
+}

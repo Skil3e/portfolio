@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { Footer, Header, SEO } from "@components";
+import { SEO } from "@components";
+import { Footer, Header } from "@layouts";
 import { motion } from "framer-motion";
 import classNames from "classnames";
 

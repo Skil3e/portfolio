@@ -1,14 +1,20 @@
-/** @type {import("gatsby").GatsbyConfig} */
-require("dotenv").config();
+import { GatsbyConfig } from "gatsby";
+import path from "path";
+import dotenv from "dotenv";
 
-module.exports = {
-    trailingSlash: "always",
-    siteMetadata: {
-        title: `Manos Menexis`,
-        description: "A 32 years old Creative Director & Frontend Developer from Athens (Greece)",
-        siteUrl: process.env.GATSBY_SITE_URL,
+dotenv.config();
+
+const config: GatsbyConfig = {
+    flags: {
+        GRAPHQL_TYPEGEN: true,
     },
-    plugins: [
+    trailingSlash: "always",
+    siteMetadata : {
+        title      : `Manos Menexis`,
+        description: "A 32 years old Creative Director & Frontend Developer from Athens (Greece)",
+        siteUrl    : process.env.GATSBY_SITE_URL,
+    },
+    plugins      : [
         "gatsby-plugin-tsconfig-paths",
         "gatsby-plugin-sass",
         "gatsby-plugin-image",
@@ -19,13 +25,13 @@ module.exports = {
         {
             resolve: `gatsby-source-contentful`,
             options: {
-                spaceId: process.env.CONTENTFUL_SPACE_ID,
-                accessToken: process.env.NODE_ENV === "development"
-                    ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-                    : process.env.CONTENTFUL_ACCESS_TOKEN,
-                host: process.env.NODE_ENV === "development"
-                    ? `preview.contentful.com`
-                    : undefined,
+                spaceId      : process.env.CONTENTFUL_SPACE_ID,
+                accessToken  : process.env.NODE_ENV === "development"
+                               ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+                               : process.env.CONTENTFUL_ACCESS_TOKEN,
+                host         : process.env.NODE_ENV === "development"
+                               ? `preview.contentful.com`
+                               : undefined,
                 downloadLocal: true,
             },
         },
@@ -35,14 +41,13 @@ module.exports = {
                 "name": "images",
                 "path": "./src/images/",
             },
-            __key: "images",
         },
         {
             resolve: "gatsby-plugin-react-svg",
             options: {
                 rule: {
-                    include: /icons/,
-                    omitKeys: ["width", "height", "id", "xmlnsDc", "xmlnsCc", "xmlnsRdf", "xmlnsSvg", "xmlnsSodipodi", "xmlnsInkscape"],
+                    include : /icons/,
+                    omitKeys: [ "width", "height", "id", "xmlnsDc", "xmlnsCc", "xmlnsRdf", "xmlnsSvg", "xmlnsSodipodi", "xmlnsInkscape" ],
                 },
             },
         },
@@ -50,7 +55,7 @@ module.exports = {
             resolve: `gatsby-theme-i18n`,
             options: {
                 defaultLang: `en`,
-                configPath: require.resolve(`./i18n/config.json`),
+                configPath : path.resolve( `./i18n/config.json` ),
             },
         },
         {
@@ -61,3 +66,5 @@ module.exports = {
         },
     ],
 };
+
+export default config;

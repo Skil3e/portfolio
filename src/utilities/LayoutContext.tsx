@@ -1,8 +1,8 @@
 import React, { Dispatch, FC, useEffect, useReducer } from "react";
-import { createContext, useContextSelector } from 'use-context-selector';
+import { createContext, useContextSelector } from "use-context-selector";
 
 type LayoutActionType = {
-    type: 'INIT' | 'SET_MOBILE' | 'OPEN_SIDEBAR' | 'CLOSE_SIDEBAR' | 'TOGGLE_SIDEBAR'
+    type: "INIT" | "SET_MOBILE" | "OPEN_SIDEBAR" | "CLOSE_SIDEBAR" | "TOGGLE_SIDEBAR"
     args?: {
         isMobile?: boolean
     }
@@ -23,37 +23,37 @@ type LayoutContextType = ReducesType & {
 
 function layoutReducer( state: ReducesType, action: LayoutActionType ) {
     switch (action.type) {
-        case 'INIT':
-            let defaultMobile = window.matchMedia( "(min-width: 85em)" ).matches
+        case "INIT":
+            let defaultMobile = window.matchMedia( "(min-width: 85em)" ).matches;
             return {
                 ...state,
                 isMobile     : !defaultMobile,
-                isSidebarOpen: defaultMobile
-            }
-        case 'SET_MOBILE':
+                isSidebarOpen: defaultMobile,
+            };
+        case "SET_MOBILE":
             return {
                 ...state,
                 isMobile     : action.args?.isMobile ?? false,
-                isSidebarOpen: !action.args?.isMobile
-            }
-        case 'TOGGLE_SIDEBAR':
+                isSidebarOpen: !action.args?.isMobile,
+            };
+        case "TOGGLE_SIDEBAR":
             return {
                 ...state,
-                isSidebarOpen: !state.isSidebarOpen
-            }
-        case 'OPEN_SIDEBAR':
+                isSidebarOpen: !state.isSidebarOpen,
+            };
+        case "OPEN_SIDEBAR":
             return {
                 ...state,
-                isSidebarOpen: true
-            }
-        case 'CLOSE_SIDEBAR':
+                isSidebarOpen: true,
+            };
+        case "CLOSE_SIDEBAR":
             if (state.isMobile) {
                 return {
                     ...state,
-                    isSidebarOpen: false
-                }
+                    isSidebarOpen: false,
+                };
             } else {
-                return state
+                return state;
             }
         default:
             return state;
@@ -68,30 +68,29 @@ export const LayoutContext = createContext<LayoutContextType>( {
     closeSidebar : () => {
     },
     openSidebar  : () => {
-    }
-} )
+    },
+} );
 
 export const LayoutContextProvider: FC<React.PropsWithChildren<unknown>> = ( { children } ) => {
     const [ state, dispatch ] = useReducer( layoutReducer, {
         isMobile     : false,
-        isSidebarOpen: false
+        isSidebarOpen: false,
     } );
 
-
     useEffect( () => {
-        dispatch( { type: "INIT" } )
-    }, [] )
+        dispatch( { type: "INIT" } );
+    }, [] );
 
     useEffect( () => {
         function toggleIsMobile( e: MediaQueryListEvent ) {
-            dispatch( { type: "SET_MOBILE", args: { isMobile: !e.matches } } )
+            dispatch( { type: "SET_MOBILE", args: { isMobile: !e.matches } } );
         }
 
-        window.matchMedia( "(min-width: 85em)" ).addEventListener( 'change', toggleIsMobile );
+        window.matchMedia( "(min-width: 85em)" ).addEventListener( "change", toggleIsMobile );
         return () => {
-            window.matchMedia( "(min-width: 85em)" ).removeEventListener( 'change', toggleIsMobile );
-        }
-    }, [ state.isMobile ] )
+            window.matchMedia( "(min-width: 85em)" ).removeEventListener( "change", toggleIsMobile );
+        };
+    }, [ state.isMobile ] );
 
     return (
         <LayoutContext.Provider value={ {
@@ -103,11 +102,17 @@ export const LayoutContextProvider: FC<React.PropsWithChildren<unknown>> = ( { c
         } }>
             { children }
         </LayoutContext.Provider>
-    )
-}
+    );
+};
 
-export const useIsMobile = () => useContextSelector( LayoutContext, ( s ) => s.isMobile )
-export const useIsSidebarOpen = () => useContextSelector( LayoutContext, ( s ) => s.isSidebarOpen )
-export const useToggleSidebar = () => useContextSelector( LayoutContext, ( s ) => s.toggleSidebar )
-export const useOpenSidebar = () => useContextSelector( LayoutContext, ( s ) => s.openSidebar )
-export const useCloseSidebar = () => useContextSelector( LayoutContext, ( s ) => s.closeSidebar )
+export const useIsMobile = () => useContextSelector( LayoutContext, ( s ) => s.isMobile );
+export const useSidebar = () => useContextSelector( LayoutContext, ( s ) => ({
+    isSidebarOpen: s.isSidebarOpen,
+    toggleSidebar: s.toggleSidebar,
+    openSidebar  : s.openSidebar,
+    closeSidebar : s.closeSidebar,
+}) );
+export const useIsSidebarOpen = () => useContextSelector( LayoutContext, ( s ) => s.isSidebarOpen );
+export const useToggleSidebar = () => useContextSelector( LayoutContext, ( s ) => s.toggleSidebar );
+export const useOpenSidebar = () => useContextSelector( LayoutContext, ( s ) => s.openSidebar );
+export const useCloseSidebar = () => useContextSelector( LayoutContext, ( s ) => s.closeSidebar );

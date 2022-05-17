@@ -27,6 +27,7 @@
 .input__label {
   display          : block;
   margin-block-end : var(--size-sm);
+  padding-inline   : var(--size-sm);
 }
 
 .input__group {

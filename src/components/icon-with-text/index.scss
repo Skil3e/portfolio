@@ -1,0 +1,15 @@
+.icon-text {
+  display         : flex;
+  align-items     : center;
+  gap             : var(--size-md);
+  text-decoration : none;
+  color           : var(--c-text);
+}
+
+.icon-text__icon {
+  fill : var(--c-accent);
+}
+
+.icon-text__label {
+
+}

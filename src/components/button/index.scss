@@ -37,6 +37,13 @@
   }
 
   &.minimal {
+	text-decoration : none;
+	color           : var(--c-accent);
+	transition      : color var(--transition-duration) ease-in-out;
+
+	&:hover {
+	  color : var(--c-accent-hover);
+	}
   }
 
 }

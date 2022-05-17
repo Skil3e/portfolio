@@ -45,10 +45,12 @@
 }
 
 .avatar__image-wrapper {
-  min-width        : 320px;
   border-radius    : 999rem;
   z-index          : 0;
   background-color : var(--c-accent);
+  @include mx.desktop() {
+	min-width : 320px;
+  }
 }
 
 
