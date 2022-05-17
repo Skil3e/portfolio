@@ -12,6 +12,7 @@ module.exports = {
         siteUrl: process.env.GATSBY_SITE_URL,
     },
     plugins: [
+        "gatsby-plugin-preact",
         "gatsby-plugin-netlify",
         "gatsby-plugin-tsconfig-paths",
         "gatsby-plugin-sass",

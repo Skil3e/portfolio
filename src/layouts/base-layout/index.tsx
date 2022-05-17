@@ -35,12 +35,14 @@ const BaseLayout: FC<React.PropsWithChildren<IBaseLayout>> = ( {
     };
     return (
         <>
-            <SEO title={ title } description={ description } type={ type } image={ image } />
-            <Header />
+            <SEO title={ title } description={ description } type={ type } image={ image }/>
+            <Header/>
             <motion.main className={ classNames( "base-layout__main", removeHeaderPadding && "remove-padding" ) } variants={ container } initial={ "hidden" } animate={ "show" }
                          whileInView={ "inView" }
-                         exit={ "hidden" }>{ children }</motion.main>
-            <Footer />
+                         exit={ "hidden" }>
+                { children }
+            </motion.main>
+            <Footer/>
         </>
     );
 };

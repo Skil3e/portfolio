@@ -3,14 +3,13 @@ import { graphql, PageProps } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { motion } from "framer-motion";
 import { BaseLayout } from "@layouts";
-import { Button, Container, ProjectSummary, ContactForm } from "@components";
+import { Button, Container, ProjectSummary, ContactForm, NoodleTitle } from "@components";
 import experience from "@data/experience.json";
 import skills from "@data/skills.json";
 import Arrows from "@icons/arrows.svg";
 import Waves from "@icons/waves.svg";
-import { TypeImage, TypeProject } from "@types";
 import Experience from "../components/experience";
-import NoodleTitle from "../components/noodle-title";
+import { TypeImage, TypeProject } from "@types";
 
 type HomePageData = {
     profilePic: TypeImage
@@ -29,20 +28,20 @@ const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageConte
         <BaseLayout removeHeaderPadding>
             <Container as={ "section" } size={ "lg" } className={ "home-section section-spacing intro" } removePaddingY aria-label={ "About Manos Menexis" }>
                 <div className={ "avatar" }>
-                    <GatsbyImage className={ "avatar__image-wrapper" } image={ data.profilePic.childImageSharp.gatsbyImageData } alt={ "Manos Menexis" } />
+                    <GatsbyImage className={ "avatar__image-wrapper" } image={ data.profilePic.childImageSharp.gatsbyImageData } alt={ "Manos Menexis" }/>
                 </div>
 
                 <div className={ "flow" }>
                     <div className={ "intro__title" }>
                         <motion.div variants={ fadeRight }>
-                            <Arrows className={ "intro__title__arrows" } />
+                            <Arrows className={ "intro__title__arrows" }/>
                         </motion.div>
                         <motion.h1 variants={ fadeName } className={ "intro__title__label" }>Manos Menexis</motion.h1>
                     </div>
 
                     <motion.h2 className={ "intro__subtitle " } variants={ introSubTitleVariants }>
                         Creative <span className={ "text--outline" }>Developer</span>
-                        <Waves className={ "intro__subtitle__waves" } />
+                        <Waves className={ "intro__subtitle__waves" }/>
                     </motion.h2>
 
                     <div className={ "intro__info" }>
@@ -70,7 +69,7 @@ const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageConte
             <section className={ "section--bg-2" } aria-label={ "Experience" }>
                 <Container className={ "home-section experience" } removePaddingY>
                     <NoodleTitle>Experience</NoodleTitle>
-                    <Experience experience={ experience } />
+                    <Experience experience={ experience }/>
                 </Container>
             </section>
 
@@ -83,7 +82,7 @@ const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageConte
                                    whileInView={ { opacity: 1, y: 0 } }
                                    viewport={ { margin: "0px 0px -250px 0px", once: true } }
                         >
-                            <ProjectSummary key={ project.id } project={ project } />
+                            <ProjectSummary key={ project.id } project={ project }/>
                         </motion.li>
                     ) ) }
                 </ul>
@@ -92,7 +91,7 @@ const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageConte
             <section className={ "section--bg-2" } id={ "contact" } aria-label={ "Contact" }>
                 <Container removePaddingY>
                     <NoodleTitle>Get in touch</NoodleTitle>
-                    <ContactForm />
+                    <ContactForm/>
                 </Container>
             </section>
         </BaseLayout>

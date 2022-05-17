@@ -6,13 +6,5 @@
     "localName": "English",
     "langDir": "ltr",
     "dateFormat": "MM/DD/YYYY"
-  },
-  {
-    "code": "el",
-    "hrefLang": "el",
-    "name": "Greek",
-    "localName": "Ελληνικά",
-    "langDir": "ltr",
-    "dateFormat": "DD.MM.YYYY"
   }
 ]

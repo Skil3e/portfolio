@@ -106,12 +106,6 @@ export const LayoutContextProvider: FC<React.PropsWithChildren<unknown>> = ( { c
 };
 
 export const useIsMobile = () => useContextSelector( LayoutContext, ( s ) => s.isMobile );
-export const useSidebar = () => useContextSelector( LayoutContext, ( s ) => ({
-    isSidebarOpen: s.isSidebarOpen,
-    toggleSidebar: s.toggleSidebar,
-    openSidebar  : s.openSidebar,
-    closeSidebar : s.closeSidebar,
-}) );
 export const useIsSidebarOpen = () => useContextSelector( LayoutContext, ( s ) => s.isSidebarOpen );
 export const useToggleSidebar = () => useContextSelector( LayoutContext, ( s ) => s.toggleSidebar );
 export const useOpenSidebar = () => useContextSelector( LayoutContext, ( s ) => s.openSidebar );
