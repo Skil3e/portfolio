@@ -1,20 +1,20 @@
-import { GatsbyConfig } from "gatsby";
+/** @type {import("gatsby").GatsbyConfig} */
 import path from "path";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const config: GatsbyConfig = {
-    flags        : {
+const config = {
+    flags: {
         GRAPHQL_TYPEGEN: true,
     },
     trailingSlash: "always",
-    siteMetadata : {
-        title      : `Manos Menexis`,
+    siteMetadata: {
+        title: `Manos Menexis`,
         description: "A 32 years old Creative Director & Frontend Developer from Athens (Greece)",
-        siteUrl    : process.env.GATSBY_SITE_URL,
+        siteUrl: process.env.GATSBY_SITE_URL,
     },
-    plugins      : [
+    plugins: [
         "gatsby-plugin-netlify",
         "gatsby-plugin-tsconfig-paths",
         "gatsby-plugin-sass",
@@ -26,13 +26,13 @@ const config: GatsbyConfig = {
         {
             resolve: `gatsby-source-contentful`,
             options: {
-                spaceId      : process.env.CONTENTFUL_SPACE_ID,
-                accessToken  : process.env.NODE_ENV === "development"
-                               ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-                               : process.env.CONTENTFUL_ACCESS_TOKEN,
-                host         : process.env.NODE_ENV === "development"
-                               ? `preview.contentful.com`
-                               : undefined,
+                spaceId: process.env.CONTENTFUL_SPACE_ID,
+                accessToken: process.env.NODE_ENV === "development"
+                    ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+                    : process.env.CONTENTFUL_ACCESS_TOKEN,
+                host: process.env.NODE_ENV === "development"
+                    ? `preview.contentful.com`
+                    : undefined,
                 downloadLocal: true,
             },
         },
@@ -47,8 +47,8 @@ const config: GatsbyConfig = {
             resolve: "gatsby-plugin-react-svg",
             options: {
                 rule: {
-                    include : /icons/,
-                    omitKeys: [ "width", "height", "id", "xmlnsDc", "xmlnsCc", "xmlnsRdf", "xmlnsSvg", "xmlnsSodipodi", "xmlnsInkscape" ],
+                    include: /icons/,
+                    omitKeys: ["width", "height", "id", "xmlnsDc", "xmlnsCc", "xmlnsRdf", "xmlnsSvg", "xmlnsSodipodi", "xmlnsInkscape"],
                 },
             },
         },
@@ -56,7 +56,7 @@ const config: GatsbyConfig = {
             resolve: `gatsby-theme-i18n`,
             options: {
                 defaultLang: `en`,
-                configPath : path.resolve( `./i18n/config.json` ),
+                configPath: path.resolve(`./i18n/config.json`),
             },
         },
         {

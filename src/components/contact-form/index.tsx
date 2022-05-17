@@ -24,7 +24,7 @@ const ContactForm: FC<TypeContactForm> = () => {
 
     const onSubmit = handleSubmit( async ( data ) => {
         await sendMail<TContactDetails>( {
-            url                   : "/api/send-email",
+            url                   : "/.netlify/functions/send-email",
             data,
             onSuccess             : () => {
                 reset( defaultValues );
