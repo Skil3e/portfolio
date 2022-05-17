@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config: GatsbyConfig = {
-    flags: {
+    flags        : {
         GRAPHQL_TYPEGEN: true,
     },
     trailingSlash: "always",
@@ -15,6 +15,7 @@ const config: GatsbyConfig = {
         siteUrl    : process.env.GATSBY_SITE_URL,
     },
     plugins      : [
+        "gatsby-plugin-netlify",
         "gatsby-plugin-tsconfig-paths",
         "gatsby-plugin-sass",
         "gatsby-plugin-image",
