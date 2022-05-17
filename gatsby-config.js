@@ -1,8 +1,5 @@
 /** @type {import("gatsby").GatsbyConfig} */
-import path from "path";
-import dotenv from "dotenv";
-
-dotenv.config();
+require("dotenv").config()
 
 const config = {
     flags: {
@@ -56,7 +53,7 @@ const config = {
             resolve: `gatsby-theme-i18n`,
             options: {
                 defaultLang: `en`,
-                configPath: path.resolve(`./i18n/config.json`),
+                configPath: require.resolve(`./i18n/config.json`),
             },
         },
         {
