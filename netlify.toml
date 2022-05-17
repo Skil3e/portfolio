@@ -1,0 +1,5 @@
+[functions]
+  node_bundler = "esbuild"
+  directory = "functions"
+[dev]
+  envFiles = [".env"]
