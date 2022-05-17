@@ -10,7 +10,6 @@
 }
 
 .intro {
-  overflow-x  : hidden;
   --size-icon : 12.5rem;
   @include mx.desktop() {
 	flex-direction : row-reverse;
