@@ -1,7 +1,7 @@
 /** @type {import("gatsby").GatsbyConfig} */
 require("dotenv").config()
 
-const config = {
+module.exports = {
     flags: {
         GRAPHQL_TYPEGEN: true,
     },
@@ -64,5 +64,3 @@ const config = {
         },
     ],
 };
-
-export default config;
