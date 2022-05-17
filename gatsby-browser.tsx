@@ -1,10 +1,10 @@
 import withContext from "./src/app/WrapRootElement";
 import WithAnimationAndCookies from "./src/app/WrapPageElement";
-import smoothScroll from "smoothscroll-polyfill"
+import { polyfill as smoothScrollPolyfill } from "smoothscroll-polyfill"
 import "./src/styles/index.scss"
 
 export const onClientEntry = () => {
-    smoothScroll.polyfill();
+    smoothScrollPolyfill();
 }
 
 export const wrapRootElement = withContext

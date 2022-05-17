@@ -21,6 +21,7 @@ body {
   color            : var(--c-text);
   line-height      : 1.6;
   accent-color     : var(--c-accent);
+  overflow-x       : hidden;
 }
 
 main {
