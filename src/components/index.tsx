@@ -8,4 +8,5 @@ export { default as IconWithText } from "./icon-with-text";
 export { default as LanguageToggle } from "./language-toggle";
 export { default as NoodleTitle } from "./noodle-title";
 export { ProjectSummary } from "./projects";
+export { default as RichText } from "./rich-text";
 export { default as Flag } from "./flag";

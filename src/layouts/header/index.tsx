@@ -7,12 +7,28 @@ import { useViewportScroll } from "framer-motion";
 import classNames from "classnames";
 import MenuToggle from "./MenuToggle";
 import { useCloseSidebar, useIsMobile, useIsSidebarOpen, useToggleSidebar } from "@utilities";
+import { graphql, useStaticQuery } from "gatsby";
+import { TypeProfile } from "@types";
 
 interface IHeader {
 
 }
 
 const Header: FC<React.PropsWithChildren<IHeader>> = () => {
+    const { profile: { nodes } } = useStaticQuery<{ profile: { nodes: Pick<TypeProfile, "firstname" | "lastname" | "location" | "degree" | "email">[] } }>( graphql`
+        {
+            profile: allContentfulProfile(filter: {contentful_id: {eq: "51HHmjEV7vNVTRqPgLZ0gN"}, node_locale: {eq: "en-US"}}) {
+                nodes {
+                    firstname
+                    lastname
+                    location
+                    degree
+                    email
+                }
+            }
+        }
+    ` )
+    const profile = nodes[0];
     const isSidebarOpen = useIsSidebarOpen();
     const toggleSidebar = useToggleSidebar()
     const closeSidebar = useCloseSidebar()
@@ -37,16 +53,16 @@ const Header: FC<React.PropsWithChildren<IHeader>> = () => {
     return (
         <>
             <header className={ classNames( "header", scrolled && "header--scrolled" ) } data-infoopen={ isMobile && isSidebarOpen }>
-                <Button to={ "/" } look={ "minimal" }><strong>Manos Menexis</strong></Button>
+                <Button to={ "/" } look={ "minimal" }><strong>{ profile.firstname } { profile.lastname }</strong></Button>
                 <Button look={ "empty" } className={ "header__quick-info__toggle" } onClick={ toggleSidebar }>
                     <MenuToggle isOpen={ isSidebarOpen }/>
                 </Button>
                 <ul className={ "header__quick-info" } role={ "list" } data-infoopen={ isSidebarOpen }>
-                    <IconWithText as={ "li" } Icon={ Degree } label={ "B.A., Product & Industrial Design" }/>
+                    <IconWithText as={ "li" } Icon={ Degree } label={ profile.degree }/>
                     <li>
-                        <IconWithText as={ "a" } href={ "mailto:manosm.design@gmail.com" } Icon={ Email } label={ "manosm.design@gmail.com" }/>
+                        <IconWithText as={ "a" } href={ `mailto:${ profile.email }` } Icon={ Email } label={ profile.email }/>
                     </li>
-                    <IconWithText as={ "li" } Icon={ Pin } label={ "Athens, GR" }/>
+                    <IconWithText as={ "li" } Icon={ Pin } label={ profile.location }/>
                 </ul>
             </header>
             { isMobile && <div onClick={ closeSidebar } data-infoopen={ isSidebarOpen } className={ "header__quick-info__overlay" }/> }

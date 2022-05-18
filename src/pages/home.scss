@@ -11,13 +11,13 @@
 
 .intro {
   --size-icon : 12.5rem;
-  overflow    : hidden;
   @include mx.desktop() {
 	flex-direction : row-reverse;
   }
 
   @include mx.mobile() {
 	--size-icon : 8rem;
+	overflow    : hidden;
   }
 }
 

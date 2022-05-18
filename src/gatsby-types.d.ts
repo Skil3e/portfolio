@@ -1027,6 +1027,301 @@ type ContentfulImageCropFocus =
   | 'top_left'
   | 'top_right';
 
+type ContentfulProfile = ContentfulEntry & ContentfulReference & Node & {
+  readonly about: Maybe<ContentfulProfileAbout>;
+  readonly children: ReadonlyArray<Node>;
+  readonly contentful_id: Scalars['String'];
+  readonly createdAt: Maybe<Scalars['Date']>;
+  readonly degree: Maybe<Scalars['String']>;
+  readonly email: Maybe<Scalars['String']>;
+  readonly firstname: Maybe<Scalars['String']>;
+  readonly id: Scalars['ID'];
+  readonly internal: Internal;
+  readonly lastname: Maybe<Scalars['String']>;
+  readonly location: Maybe<Scalars['String']>;
+  readonly node_locale: Scalars['String'];
+  readonly parent: Maybe<Node>;
+  readonly skills: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly spaceId: Maybe<Scalars['String']>;
+  readonly sys: Maybe<ContentfulProfileSys>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly updatedAt: Maybe<Scalars['Date']>;
+};
+
+
+type ContentfulProfile_createdAtArgs = {
+  difference: InputMaybe<Scalars['String']>;
+  formatString: InputMaybe<Scalars['String']>;
+  fromNow: InputMaybe<Scalars['Boolean']>;
+  locale: InputMaybe<Scalars['String']>;
+};
+
+
+type ContentfulProfile_updatedAtArgs = {
+  difference: InputMaybe<Scalars['String']>;
+  formatString: InputMaybe<Scalars['String']>;
+  fromNow: InputMaybe<Scalars['Boolean']>;
+  locale: InputMaybe<Scalars['String']>;
+};
+
+type ContentfulProfileAbout = {
+  readonly raw: Maybe<Scalars['String']>;
+};
+
+type ContentfulProfileAboutFilterInput = {
+  readonly raw: InputMaybe<StringQueryOperatorInput>;
+};
+
+type ContentfulProfileConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<ContentfulProfileEdge>;
+  readonly group: ReadonlyArray<ContentfulProfileGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<ContentfulProfile>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type ContentfulProfileConnection_distinctArgs = {
+  field: ContentfulProfileFieldsEnum;
+};
+
+
+type ContentfulProfileConnection_groupArgs = {
+  field: ContentfulProfileFieldsEnum;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type ContentfulProfileConnection_maxArgs = {
+  field: ContentfulProfileFieldsEnum;
+};
+
+
+type ContentfulProfileConnection_minArgs = {
+  field: ContentfulProfileFieldsEnum;
+};
+
+
+type ContentfulProfileConnection_sumArgs = {
+  field: ContentfulProfileFieldsEnum;
+};
+
+type ContentfulProfileEdge = {
+  readonly next: Maybe<ContentfulProfile>;
+  readonly node: ContentfulProfile;
+  readonly previous: Maybe<ContentfulProfile>;
+};
+
+type ContentfulProfileFieldsEnum =
+  | 'about.raw'
+  | 'children'
+  | 'children.children'
+  | 'children.children.children'
+  | 'children.children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.id'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.children.parent.children'
+  | 'children.children.parent.id'
+  | 'children.id'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'children.parent.children'
+  | 'children.parent.children.children'
+  | 'children.parent.children.id'
+  | 'children.parent.id'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.parent.parent.children'
+  | 'children.parent.parent.id'
+  | 'contentful_id'
+  | 'createdAt'
+  | 'degree'
+  | 'email'
+  | 'firstname'
+  | 'id'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type'
+  | 'lastname'
+  | 'location'
+  | 'node_locale'
+  | 'parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.id'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.children.parent.children'
+  | 'parent.children.parent.id'
+  | 'parent.id'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'parent.parent.children'
+  | 'parent.parent.children.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.id'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.parent.id'
+  | 'skills'
+  | 'spaceId'
+  | 'sys.contentType.sys.id'
+  | 'sys.contentType.sys.linkType'
+  | 'sys.contentType.sys.type'
+  | 'sys.revision'
+  | 'sys.type'
+  | 'title'
+  | 'updatedAt';
+
+type ContentfulProfileFilterInput = {
+  readonly about: InputMaybe<ContentfulProfileAboutFilterInput>;
+  readonly children: InputMaybe<NodeFilterListInput>;
+  readonly contentful_id: InputMaybe<StringQueryOperatorInput>;
+  readonly createdAt: InputMaybe<DateQueryOperatorInput>;
+  readonly degree: InputMaybe<StringQueryOperatorInput>;
+  readonly email: InputMaybe<StringQueryOperatorInput>;
+  readonly firstname: InputMaybe<StringQueryOperatorInput>;
+  readonly id: InputMaybe<StringQueryOperatorInput>;
+  readonly internal: InputMaybe<InternalFilterInput>;
+  readonly lastname: InputMaybe<StringQueryOperatorInput>;
+  readonly location: InputMaybe<StringQueryOperatorInput>;
+  readonly node_locale: InputMaybe<StringQueryOperatorInput>;
+  readonly parent: InputMaybe<NodeFilterInput>;
+  readonly skills: InputMaybe<StringQueryOperatorInput>;
+  readonly spaceId: InputMaybe<StringQueryOperatorInput>;
+  readonly sys: InputMaybe<ContentfulProfileSysFilterInput>;
+  readonly title: InputMaybe<StringQueryOperatorInput>;
+  readonly updatedAt: InputMaybe<DateQueryOperatorInput>;
+};
+
+type ContentfulProfileGroupConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<ContentfulProfileEdge>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+  readonly group: ReadonlyArray<ContentfulProfileGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<ContentfulProfile>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type ContentfulProfileGroupConnection_distinctArgs = {
+  field: ContentfulProfileFieldsEnum;
+};
+
+
+type ContentfulProfileGroupConnection_groupArgs = {
+  field: ContentfulProfileFieldsEnum;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type ContentfulProfileGroupConnection_maxArgs = {
+  field: ContentfulProfileFieldsEnum;
+};
+
+
+type ContentfulProfileGroupConnection_minArgs = {
+  field: ContentfulProfileFieldsEnum;
+};
+
+
+type ContentfulProfileGroupConnection_sumArgs = {
+  field: ContentfulProfileFieldsEnum;
+};
+
+type ContentfulProfileSortInput = {
+  readonly fields: InputMaybe<ReadonlyArray<InputMaybe<ContentfulProfileFieldsEnum>>>;
+  readonly order: InputMaybe<ReadonlyArray<InputMaybe<SortOrderEnum>>>;
+};
+
+type ContentfulProfileSys = {
+  readonly contentType: Maybe<ContentfulProfileSysContentType>;
+  readonly revision: Maybe<Scalars['Int']>;
+  readonly type: Maybe<Scalars['String']>;
+};
+
+type ContentfulProfileSysContentType = {
+  readonly sys: Maybe<ContentfulProfileSysContentTypeSys>;
+};
+
+type ContentfulProfileSysContentTypeFilterInput = {
+  readonly sys: InputMaybe<ContentfulProfileSysContentTypeSysFilterInput>;
+};
+
+type ContentfulProfileSysContentTypeSys = {
+  readonly id: Maybe<Scalars['String']>;
+  readonly linkType: Maybe<Scalars['String']>;
+  readonly type: Maybe<Scalars['String']>;
+};
+
+type ContentfulProfileSysContentTypeSysFilterInput = {
+  readonly id: InputMaybe<StringQueryOperatorInput>;
+  readonly linkType: InputMaybe<StringQueryOperatorInput>;
+  readonly type: InputMaybe<StringQueryOperatorInput>;
+};
+
+type ContentfulProfileSysFilterInput = {
+  readonly contentType: InputMaybe<ContentfulProfileSysContentTypeFilterInput>;
+  readonly revision: InputMaybe<IntQueryOperatorInput>;
+  readonly type: InputMaybe<StringQueryOperatorInput>;
+};
+
 type ContentfulProjectCategories = ContentfulEntry & ContentfulReference & Node & {
   /** Returns the first child node of type contentfulProjectCategoriesDescriptionTextNode or null if there are no children of given type on this node */
   readonly childContentfulProjectCategoriesDescriptionTextNode: Maybe<contentfulProjectCategoriesDescriptionTextNode>;
@@ -4127,6 +4422,7 @@ type Query = {
   readonly allContentfulAsset: ContentfulAssetConnection;
   readonly allContentfulContentType: ContentfulContentTypeConnection;
   readonly allContentfulEntry: ContentfulEntryConnection;
+  readonly allContentfulProfile: ContentfulProfileConnection;
   readonly allContentfulProjectCategories: ContentfulProjectCategoriesConnection;
   readonly allContentfulProjectCategoriesDescriptionTextNode: contentfulProjectCategoriesDescriptionTextNodeConnection;
   readonly allContentfulProjects: ContentfulProjectsConnection;
@@ -4142,6 +4438,7 @@ type Query = {
   readonly contentfulAsset: Maybe<ContentfulAsset>;
   readonly contentfulContentType: Maybe<ContentfulContentType>;
   readonly contentfulEntry: Maybe<ContentfulEntry>;
+  readonly contentfulProfile: Maybe<ContentfulProfile>;
   readonly contentfulProjectCategories: Maybe<ContentfulProjectCategories>;
   readonly contentfulProjectCategoriesDescriptionTextNode: Maybe<contentfulProjectCategoriesDescriptionTextNode>;
   readonly contentfulProjects: Maybe<ContentfulProjects>;
@@ -4178,6 +4475,14 @@ type Query_allContentfulEntryArgs = {
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
   sort: InputMaybe<ContentfulEntrySortInput>;
+};
+
+
+type Query_allContentfulProfileArgs = {
+  filter: InputMaybe<ContentfulProfileFilterInput>;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+  sort: InputMaybe<ContentfulProfileSortInput>;
 };
 
 
@@ -4327,6 +4632,28 @@ type Query_contentfulEntryArgs = {
   internal: InputMaybe<InternalFilterInput>;
   node_locale: InputMaybe<StringQueryOperatorInput>;
   parent: InputMaybe<NodeFilterInput>;
+};
+
+
+type Query_contentfulProfileArgs = {
+  about: InputMaybe<ContentfulProfileAboutFilterInput>;
+  children: InputMaybe<NodeFilterListInput>;
+  contentful_id: InputMaybe<StringQueryOperatorInput>;
+  createdAt: InputMaybe<DateQueryOperatorInput>;
+  degree: InputMaybe<StringQueryOperatorInput>;
+  email: InputMaybe<StringQueryOperatorInput>;
+  firstname: InputMaybe<StringQueryOperatorInput>;
+  id: InputMaybe<StringQueryOperatorInput>;
+  internal: InputMaybe<InternalFilterInput>;
+  lastname: InputMaybe<StringQueryOperatorInput>;
+  location: InputMaybe<StringQueryOperatorInput>;
+  node_locale: InputMaybe<StringQueryOperatorInput>;
+  parent: InputMaybe<NodeFilterInput>;
+  skills: InputMaybe<StringQueryOperatorInput>;
+  spaceId: InputMaybe<StringQueryOperatorInput>;
+  sys: InputMaybe<ContentfulProfileSysFilterInput>;
+  title: InputMaybe<StringQueryOperatorInput>;
+  updatedAt: InputMaybe<DateQueryOperatorInput>;
 };
 
 
@@ -6253,7 +6580,7 @@ type contentfulProjectCategoriesDescriptionTextNodeSysFilterInput = {
 type HomepageQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type HomepageQueryQuery = { readonly profilePic: { readonly relativePath: string, readonly childImageSharp: { readonly gatsbyImageData: Record<string, unknown> } | null } | null, readonly allWebsiteProjects: { readonly nodes: ReadonlyArray<{ readonly projects: ReadonlyArray<{ readonly id: string, readonly title: string | null, readonly websiteUrl: string | null, readonly introImage: { readonly localFile: { readonly childImageSharp: { readonly gatsbyImageData: Record<string, unknown> } | null } | null } | null } | null> | null }> } };
+type HomepageQueryQuery = { readonly profilePic: { readonly relativePath: string, readonly childImageSharp: { readonly gatsbyImageData: Record<string, unknown> } | null } | null, readonly profile: { readonly nodes: ReadonlyArray<{ readonly firstname: string | null, readonly lastname: string | null, readonly title: string | null, readonly skills: ReadonlyArray<string | null> | null, readonly about: { readonly raw: string | null } | null }> }, readonly allWebsiteProjects: { readonly nodes: ReadonlyArray<{ readonly projects: ReadonlyArray<{ readonly id: string, readonly title: string | null, readonly websiteUrl: string | null, readonly introImage: { readonly localFile: { readonly childImageSharp: { readonly gatsbyImageData: Record<string, unknown> } | null } | null } | null } | null> | null }> } };
 
 
 }

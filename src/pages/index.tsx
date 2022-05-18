@@ -3,13 +3,11 @@ import { graphql, PageProps } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { motion } from "framer-motion";
 import { BaseLayout } from "@layouts";
-import { Button, Container, ProjectSummary, ContactForm, NoodleTitle } from "@components";
+import { Button, Container, ProjectSummary, ContactForm, NoodleTitle, Experience, RichText } from "@components";
 import experience from "@data/experience.json";
-import skills from "@data/skills.json";
 import Arrows from "@icons/arrows.svg";
 import Waves from "@icons/waves.svg";
-import Experience from "../components/experience";
-import { TypeImage, TypeProject } from "@types";
+import { TypeImage, TypeProject, TypeProfile } from "@types";
 
 type HomePageData = {
     profilePic: TypeImage
@@ -18,12 +16,18 @@ type HomePageData = {
             projects: TypeProject[]
         }[]
     }
+    profile: {
+        nodes: TypeProfile[]
+    }
 }
+
 type HomePageContext = {
     locale: string
 }
 
 const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageContext>>> = ( { data } ) => {
+    const profile = data.profile.nodes[0];
+
     return (
         <BaseLayout removeHeaderPadding>
             <Container as={ "section" } size={ "lg" } className={ "home-section section-spacing intro" } removePaddingY aria-label={ "About Manos Menexis" }>
@@ -36,28 +40,26 @@ const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageConte
                         <motion.div variants={ fadeRight }>
                             <Arrows className={ "intro__title__arrows" }/>
                         </motion.div>
-                        <motion.h1 variants={ fadeName } className={ "intro__title__label" }>Manos Menexis</motion.h1>
+                        <motion.h1 variants={ fadeName } className={ "intro__title__label" }>{ profile.firstname } { profile.lastname }</motion.h1>
                     </div>
 
                     <motion.h2 className={ "intro__subtitle " } variants={ introSubTitleVariants }>
-                        Creative <span className={ "text--outline" }>Developer</span>
+                        <span>{ profile.title.split( " " )[0] }</span>
+                        <br/>
+                        <span className={ "text--outline" }>{ profile.title.split( " " )[1] } </span>
                         <Waves className={ "intro__subtitle__waves" }/>
                     </motion.h2>
 
                     <div className={ "intro__info" }>
                         <motion.div className={ "intro__about flow" } variants={ introAboutVariants }>
-                            <p>I'm a 30 years old Creative Director & Frontend Developer from Athens (Greece). I love good design quality with functionality and i have an obsession for detail. I like
-                                to combine my knowledge, on product / graphic design, web development, music and video to get a result as complete and great as possible.</p>
-                            <p>I consider accessibility and best practices very important and I try to incorporate them as much as possible. Brand consistency is also something that I am really
-                                passionate about because it elevates trust, recognition and memorability of the products and/or services provided.</p>
-                            <p>I love what i do and I am committed to provide the best possible solution to creative problems while creating memorable user experiences.</p>
+                            <RichText bodyRichText={ profile.about }/>
                             <Button look={ "primary" } scrollTo={ "contact" }>Contact</Button>
                         </motion.div>
 
                         <motion.div className={ "skills" } variants={ skillsVariants } viewport={ { margin: "0px 0px -50px 0px" } }>
                             <motion.h2 className={ "text--c-accent " }>Skills</motion.h2>
                             <div className={ "skill-tags" }>
-                                { skills.map( skill =>
+                                { profile.skills?.map( skill =>
                                     <motion.span className={ "skill__tag" } key={ skill } variants={ skillBadgeVariants }>{ skill }</motion.span>,
                                 ) }
                             </div>
@@ -106,6 +108,19 @@ export const query = graphql`
             relativePath
             childImageSharp {
                 gatsbyImageData(width: 320)
+            }
+        }
+        profile: allContentfulProfile(
+            filter: {contentful_id: {eq: "51HHmjEV7vNVTRqPgLZ0gN"}, node_locale: {eq: "en-US"}}
+        ) {
+            nodes {
+                firstname
+                lastname
+                title
+                skills
+                about {
+                    raw
+                }
             }
         }
         allWebsiteProjects: allContentfulProjectCategories(
