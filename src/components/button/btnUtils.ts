@@ -1,4 +1,4 @@
-export function smoothScroll( id: string, offset: number = 76 ) {
+export function smoothScroll( id: string, offset: number = 0 ) {
     const element = document.getElementById( id );
     if (!element) {
         return
