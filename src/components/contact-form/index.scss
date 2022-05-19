@@ -1,3 +1,5 @@
+@use "src/styles/mixins" as mx;
+
 .contact-form {
   --flow-space       : var(--size-md);
   margin-block-start : var(--size-xl);
@@ -5,8 +7,12 @@
 }
 
 .contact-form__success-message {
-  display               : grid;
-  grid-template-columns : repeat(2, 1fr);
+  display : grid;
+  gap     : var(--size-lg);
+
+  @include mx.desktop() {
+	grid-template-columns :repeat(2, 1fr);
+  }
 }
 
 .grecaptcha-badge {
