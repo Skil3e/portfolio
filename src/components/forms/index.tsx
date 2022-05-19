@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { forwardRef, FunctionComponent, HTMLAttributes, InputHTMLAttributes, Ref, TextareaHTMLAttributes } from "react";
 import classNames from "classnames";
 import PhoneInput from "react-phone-input-2";
@@ -48,7 +48,7 @@ export const Input = forwardRef(
                           errors={ errors }
                           labelClassName={ labelClassName }
             >
-                <input { ...rest } ref={ ref } className={ inputCls } type={ type } id={ name } name={ name } />
+                <input { ...rest } ref={ ref } className={ inputCls } type={ type } id={ name } name={ name }/>
             </InputWrapper>
         );
     } );
@@ -103,10 +103,11 @@ export const TextArea = forwardRef(
                           errors={ errors }
                           labelClassName={ labelClassName }
             >
-                <textarea { ...rest } ref={ ref } className={ inputCls } id={ name } name={ name } />
+                <textarea { ...rest } ref={ ref } className={ inputCls } id={ name } name={ name }/>
             </InputWrapper>
         );
     } );
+
 
 interface PhoneInputWrapperProps {
     name: string;
@@ -119,7 +120,7 @@ interface PhoneInputWrapperProps {
     control: any;
 }
 
-export const PhoneInputWrapper: FunctionComponent<React.PropsWithChildren<PhoneInputWrapperProps>> = ( { name, errors, className, label, control } ) => {
+export const PhoneInputWrapper: FunctionComponent<React.PropsWithChildren<PhoneInputWrapperProps>> = ( { name, errors, className, label, control, disabled } ) => {
     const labelCls = classNames( "input__label" );
     return (
         <div className={ classNames( "input__wrapper", className ) }>
@@ -134,7 +135,7 @@ export const PhoneInputWrapper: FunctionComponent<React.PropsWithChildren<PhoneI
                             country={ "gr" }
                             onChange={ ( _, __, ___, formattedValue ) => onChange( formattedValue ) }
                             value={ value ?? "+30" }
-                            inputProps={ { id: name, name: name } }
+                            inputProps={ { id: name, name: name, disabled, className: "input__field--phone input__field" } }
                             countryCodeEditable={ false }
                         />
                     );

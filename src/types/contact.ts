@@ -2,7 +2,6 @@ export type TPerson = {
     firstName: string
     lastName: string
     email: string
-    phone?: string
 }
 
 export type TFormFields = {

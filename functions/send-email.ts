@@ -11,6 +11,7 @@ const transporter = nodemailer.createTransport( {
     }
 } );
 
+
 const handler: Handler = async ( event ) => {
     if (!event.body) {
         return {
@@ -73,7 +74,6 @@ function template( data: TContactDetails ) {
         <div style="font-size: 16px; padding: 20px">
           <p>From: <b>${ data.firstName } ${ data.lastName }</b></p>
           <p>Email: <b>${ data.email }</b></p>
-          <p>Phone: <b>${ data?.phone }</b></p>
           <p>${ data.message }</p>
         </div>
       </div>

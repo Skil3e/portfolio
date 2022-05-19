@@ -18,7 +18,9 @@
   --size-header                : 4.25rem;
   --size-sidebar               : 17.5rem;
 
-  --input-padding              : 10px 15px;
+  --input-padding-y            : var(--size-sm);
+  --input-padding-x            : var(--size-md);
+  --input-padding              : var(--input-padding-y) var(--input-padding-x);
 
   // Typography
   --font-size-small            : clamp(0.91rem, 0.89rem + 0.10vw, 0.96rem);

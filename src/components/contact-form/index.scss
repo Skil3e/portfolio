@@ -10,10 +10,19 @@
   display : grid;
   gap     : var(--size-lg);
 
+  h2 {
+	font-size : var(--font-size-4);
+  }
+
+  svg {
+	justify-self : flex-end;
+  }
+
   @include mx.desktop() {
-	grid-template-columns :repeat(2, 1fr);
+	grid-template-columns : 1.2fr 1fr;
   }
 }
+
 
 .grecaptcha-badge {
   visibility : hidden;

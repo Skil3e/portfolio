@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 import { graphql, PageProps } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { BaseLayout } from "@layouts";
 import { Button, Container, ProjectSummary, ContactForm, NoodleTitle, Experience, RichText } from "@components";
 import experience from "@data/experience.json";
 import Arrows from "@icons/arrows.svg";
 import Waves from "@icons/waves.svg";
-import { TypeImage, TypeProject, TypeProfile } from "@types";
+import { TypeImage, TypeProject, TypeProfile, TypeReduceMotion } from "@types";
 
 type HomePageData = {
     profilePic: TypeImage
@@ -27,7 +27,7 @@ type HomePageContext = {
 
 const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageContext>>> = ( { data } ) => {
     const profile = data.profile.nodes[0];
-
+    const reduceMotion = useReducedMotion()
     return (
         <BaseLayout removeHeaderPadding>
             <Container as={ "section" } size={ "lg" } className={ "home-section section-spacing intro" } removePaddingY aria-label={ "About Manos Menexis" }>
@@ -37,13 +37,13 @@ const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageConte
 
                 <div className={ "flow" }>
                     <div className={ "intro__title" }>
-                        <motion.div variants={ fadeRight }>
+                        <motion.div variants={ fadeRight( reduceMotion ) }>
                             <Arrows className={ "intro__title__arrows" }/>
                         </motion.div>
-                        <motion.h1 variants={ fadeName } className={ "intro__title__label" }>{ profile.firstname } { profile.lastname }</motion.h1>
+                        <motion.h1 variants={ fadeName( reduceMotion ) } className={ "intro__title__label" }>{ profile.firstname } { profile.lastname }</motion.h1>
                     </div>
 
-                    <motion.h2 className={ "intro__subtitle " } variants={ introSubTitleVariants }>
+                    <motion.h2 className={ "intro__subtitle " } variants={ introSubTitleVariants( reduceMotion ) }>
                         <span>{ profile.title.split( " " )[0] }</span>
                         <br/>
                         <span className={ "text--outline" }>{ profile.title.split( " " )[1] } </span>
@@ -51,16 +51,16 @@ const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageConte
                     </motion.h2>
 
                     <div className={ "intro__info" }>
-                        <motion.div className={ "intro__about flow" } variants={ introAboutVariants }>
+                        <motion.div className={ "intro__about flow" } variants={ introAboutVariants( reduceMotion ) }>
                             <RichText bodyRichText={ profile.about }/>
                             <Button look={ "primary" } scrollTo={ "contact" }>Contact</Button>
                         </motion.div>
 
-                        <motion.div className={ "skills" } variants={ skillsVariants } viewport={ { margin: "0px 0px -50px 0px" } }>
+                        <motion.div className={ "skills" } variants={ skillsVariants( reduceMotion ) } viewport={ { margin: "0px 0px -50px 0px" } }>
                             <motion.h2 className={ "text--c-accent " }>Skills</motion.h2>
                             <div className={ "skill-tags" }>
                                 { profile.skills?.map( skill =>
-                                    <motion.span className={ "skill__tag" } key={ skill } variants={ skillBadgeVariants }>{ skill }</motion.span>,
+                                    <motion.span className={ "skill__tag" } key={ skill } variants={ skillBadgeVariants( reduceMotion ) }>{ skill }</motion.span>,
                                 ) }
                             </div>
                         </motion.div>
@@ -79,13 +79,7 @@ const HomePage: FC<React.PropsWithChildren<PageProps<HomePageData, HomePageConte
                 <NoodleTitle>Projects</NoodleTitle>
                 <ul className={ "project-summary-grid" } role={ "list" }>
                     { data.allWebsiteProjects.nodes[0].projects.map( project => (
-                        <motion.li key={ project.id }
-                                   initial={ { opacity: 0, y: 50 } }
-                                   whileInView={ { opacity: 1, y: 0 } }
-                                   viewport={ { margin: "0px 0px -250px 0px", once: true } }
-                        >
-                            <ProjectSummary key={ project.id } project={ project }/>
-                        </motion.li>
+                        <ProjectSummary key={ project.id } project={ project }/>
                     ) ) }
                 </ul>
             </Container>
@@ -143,60 +137,85 @@ export const query = graphql`
         }
     }`;
 
-const fadeRight = {
-    hidden: { x: -60, opacity: 0 },
-    show  : { x: 0, opacity: 1, transition: { type: "spring" } },
-};
-
-const fadeName = {
-    hidden: { x: -60, y: -40, opacity: 0 },
-    show  : { x: [ -60, 0, 0 ], y: [ -40, -40, 0 ], opacity: [ 0, 1, 1 ], transition: { ease: "easeInOut" } },
-};
-
-const introSubTitleVariants = {
-    hidden: { letterSpacing: "20px", scale: 1.1, opacity: 0 },
-    show  : { letterSpacing: [ "20px", "0px", "0px" ], scale: [ 1.1, 1.1, 1 ], opacity: [ 0, 1, 1 ], transition: { ease: "easeInOut" } },
-};
-
-const introAboutVariants = {
+const fadeRight = ( reduceMotion: TypeReduceMotion ) => ({
     hidden: {
-        y      : 40,
+        x      : reduceMotion ? 0 : -60,
+        opacity: 0
+    },
+    show  : {
+        x         : 0,
+        opacity   : 1,
+        transition: { type: "spring" }
+    },
+});
+
+const fadeName = ( reduceMotion: TypeReduceMotion ) => ({
+    hidden: {
+        x      : reduceMotion ? 0 : -60,
+        y      : reduceMotion ? 0 : -40,
+        opacity: 0
+    },
+    show  : {
+        x         : reduceMotion ? 0 : [ -60, 0, 0 ],
+        y         : reduceMotion ? 0 : [ -40, -40, 0 ],
+        opacity   : [ 0, 1, 1 ],
+        transition: { ease: "easeInOut" }
+    },
+});
+
+const introSubTitleVariants = ( reduceMotion: TypeReduceMotion ) => ({
+    hidden: {
+        letterSpacing: reduceMotion ? "0px" : "20px",
+        scale        : reduceMotion ? 1 : 1.1,
+        opacity      : 0
+    },
+    show  : {
+        letterSpacing: reduceMotion ? "0px" : [ "20px", "0px", "0px" ],
+        scale        : reduceMotion ? 1 : [ 1.1, 1.1, 1 ],
+        opacity      : [ 0, 1, 1 ],
+        transition   : { ease: "easeInOut" }
+    },
+});
+
+const introAboutVariants = ( reduceMotion: TypeReduceMotion ) => ({
+    hidden: {
+        y      : reduceMotion ? 0 : 40,
         opacity: 0,
     },
     show  : {
-        y         : [ 40, 40, 40, 0 ],
-        opacity   : [ 0, 0, 0, 1 ],
+        y         : reduceMotion ? 0 : [ 40, 40, 40, 0 ],
+        opacity   : reduceMotion ? 1 : [ 0, 0, 0, 1 ],
         transition: {
             ease: "easeInOut",
         },
     },
-};
+});
 
-const skillsVariants = {
+const skillsVariants = ( reduceMotion: TypeReduceMotion ) => ({
     hidden: {
-        x      : 40,
+        x      : reduceMotion ? 0 : 40,
         opacity: 0,
     },
     show  : {
-        x         : [ 40, 40, 40, 0 ],
-        opacity   : [ 0, 0, 0, 1 ],
+        x         : reduceMotion ? 0 : [ 40, 40, 40, 0 ],
+        opacity   : reduceMotion ? 1 : [ 0, 0, 0, 1 ],
         transition: {
             ease           : "easeInOut",
             staggerChildren: .05,
         },
     },
-};
+});
 
-const skillBadgeVariants = {
+const skillBadgeVariants = ( reduceMotion: TypeReduceMotion ) => ({
     hidden: {
-        scale  : 0,
+        scale  : reduceMotion ? 1 : 0,
         opacity: 0,
     },
     show  : {
-        scale     : [ 0, 0, 0, 1 ],
-        opacity   : [ 0, 0, 0, 1 ],
+        scale     : reduceMotion ? 1 : [ 0, 0, 0, 1 ],
+        opacity   : reduceMotion ? 1 : [ 0, 0, 0, 1 ],
         transition: {
             ease: "easeInOut",
         },
     },
-};
+});

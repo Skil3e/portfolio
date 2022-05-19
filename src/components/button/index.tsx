@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { LocalizedLink as Link } from "gatsby-theme-i18n"
 import { smoothScroll } from "./btnUtils";
 import classNames from "classnames"
+import { LoadingState } from "../index";
 
 type IButton = {
     className?: string
@@ -13,31 +14,35 @@ type IButton = {
     tabIndex?: number
     type?: 'submit' | 'reset' | 'button'
 } & (
-    | { to: string; scrollTo?: false, isNavLink?: true, notInline?: false, partiallyCurrent?: true, activeCls?: string, inactiveCls?: string }
-    | { to?: false; scrollTo: string, isNavLink?: false, notInline?: true, partiallyCurrent?: false, activeCls?: false, inactiveCls?: false }
-    | { to?: false; scrollTo?: false, isNavLink?: false, notInline?: true, partiallyCurrent?: false, activeCls?: false, inactiveCls?: false }
+    // Link
+    | { to: string; scrollTo?: false, isNavLink?: true, notInline?: false, partiallyCurrent?: true, activeCls?: string, inactiveCls?: string, isLoading?: false }
+    // Hash Link
+    | { to?: false; scrollTo: string, isNavLink?: false, notInline?: true, partiallyCurrent?: false, activeCls?: false, inactiveCls?: false, isLoading?: false }
+    // Button
+    | { to?: false; scrollTo?: false, isNavLink?: false, notInline?: true, partiallyCurrent?: false, activeCls?: false, inactiveCls?: false, isLoading?: boolean }
     )
 
 
 const Button: FC<React.PropsWithChildren<IButton>> = ( {
-                                  className,
-                                  to,
-                                  onClick,
-                                  children,
-                                  look = "minimal",
-                                  icon,
-                                  disabled,
-                                  title,
-                                  tabIndex,
-                                  scrollTo,
-                                  isNavLink,
-                                  partiallyCurrent,
-                                  activeCls = "active",
-                                  inactiveCls,
-                                  notInline,
-                                  type,
-                                  ...rest
-                              } ) => {
+                                                           className,
+                                                           to,
+                                                           onClick,
+                                                           children,
+                                                           look = "minimal",
+                                                           icon,
+                                                           disabled,
+                                                           title,
+                                                           tabIndex,
+                                                           scrollTo,
+                                                           isNavLink,
+                                                           partiallyCurrent,
+                                                           activeCls = "active",
+                                                           inactiveCls,
+                                                           notInline,
+                                                           type,
+                                                           isLoading,
+                                                           ...rest
+                                                       } ) => {
 
     const cls = classNames( "btn", notInline && "btn--block", look, className )
 
@@ -71,7 +76,10 @@ const Button: FC<React.PropsWithChildren<IButton>> = ( {
 
     return (
         <button onClick={ onClick } className={ cls } disabled={ disabled } title={ title } tabIndex={ tabIndex } type={ type } { ...rest }>
-            { children }
+            { isLoading
+              ? <LoadingState className={ "btn--loading" }/>
+              : children
+            }
         </button>
     )
 }

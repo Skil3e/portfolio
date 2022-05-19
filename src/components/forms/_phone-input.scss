@@ -8,43 +8,48 @@ $textColor    : var(--c-grey-1);
 
 
 .react-tel-input {
-  font-size     : unset;
+  position      : relative;
+  width         : 100%;
   border-radius : $borderRadius;
 
-  &:focus-within {
-	outline-offset : 2px;
-	outline        : var(--state-focus);
+  .special-label {
+	display : none;
   }
 
-  .form-control {
-	height           : $height;
-	padding-right    : 15px;
-	padding-top      : 10px;
-	padding-bottom   : 10px;
-	padding-left     : 60px !important;
-	width            : 100%;
-	line-height      : 1.15;
-	font-size        : inherit;
-	border-radius    : $borderRadius;
-	background-color : $bgColor;
-	border           : 1px solid $bgColor;
-	color            : $textColor;
+  .hide {
+	display : none
+  }
+
+  .v-hide {
+	visibility : hidden
   }
 
   .flag-dropdown {
+	position         : absolute;
+	top              : 0;
+	bottom           : 0;
+	padding          : 0;
 	background-color : $bgColor;
 	border           : 1px solid $bgColor;
 	transition       : background-color 250ms ease-in-out;
 	border-radius    : $borderRadius 0 0 $borderRadius;
+	z-index          : 2;
 
 	.selected-flag {
-	  width        : 50px;
-	  display      : flex;
-	  align-items  : center;
-	  padding-left : 13px;
-	  border-right : 1px solid $bgHoverColor;
-	  transition   : background-color 250ms ease-in-out;
-	  border-radius    : $borderRadius 0 0 $borderRadius;
+	  position        : relative;
+	  width           : 50px;
+	  height          : 100%;
+	  display         : flex;
+	  align-items     : center;
+	  justify-content : center;
+	  border-right    : 1px solid $bgHoverColor;
+	  transition      : background-color 250ms ease-in-out;
+	  border-radius   : $borderRadius 0 0 $borderRadius;
+	  cursor          : pointer;
+
+	  .arrow {
+		display : none;
+	  }
 
 	  &:focus {
 		background-color : $bgHoverColor !important;
@@ -61,10 +66,29 @@ $textColor    : var(--c-grey-1);
   }
 
   .country-list {
+	list-style       : none;
+	position         : absolute;
+	padding          : 0;
+	margin           : 10px 0 10px -1px;
 	background-color : $bgColor;
+	box-shadow       : var(--shadow-1);
+	width            : 300px;
 	max-height       : 250px;
+	overflow-y       : scroll;
+	z-index          : 1;
+
+	.flag {
+	  display : inline-block
+	}
+
+	.divider {
+	  padding-bottom : 5px;
+	  margin-bottom  : 5px;
+	  border-bottom  : 1px solid #ccc
+	}
 
 	.country {
+	  padding    : 7px 9px;
 	  transition : background-color 250ms ease-in-out;
 
 	  &.highlight, &:hover, &:focus {
@@ -72,17 +96,44 @@ $textColor    : var(--c-grey-1);
 	  }
 	}
 
+	.country-name {
+	  margin-inline : var(--size-sm);
+	}
+
 	.search {
-	  display       : flex;
-	  align-items   : center;
-	  background    : $bgHoverColor;
-	  padding-right : 10px;
+	  position    : sticky;
+	  top         : 0;
+	  display     : flex;
+	  align-items : center;
+	  background  : $bgHoverColor;
+	  padding     : 10px 0 6px 10px;
 
 	  .search-box {
-		background : $bgColor;
-		border     : 1px solid $bgColor;
-		color      : $textColor;
+		background  : $bgColor;
+		border      : 1px solid $bgColor;
+		color       : $textColor;
+		margin-left : 6px;
+		padding     : 3px 8px 5px;
 	  }
 	}
+
+	.no-entries-message {
+	  padding : 7px 10px 11px;
+	  opacity : .7
+	}
+
+	.search-emoji {
+	  font-size : 15px
+	}
   }
+
+  .invalid-number-message {
+	position   : absolute;
+	z-index    : 1;
+	font-size  : 13px;
+	left       : 46px;
+	top        : -8px;
+	padding    : 0 2px;
+	background : var(--c-bg-1);
+	color      : var(--c-error)}
 }

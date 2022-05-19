@@ -1,5 +1,7 @@
 import { IGatsbyImageData } from "gatsby-plugin-image";
 
+export type TypeReduceMotion = boolean | null;
+
 export type TypeLocale = "en" | "el"
 
 export type Translatable = {

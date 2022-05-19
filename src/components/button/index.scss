@@ -25,9 +25,14 @@
 	background-color : var(--c-accent);
 	color            : var(--c-on-accent);
 	transition       : background-color var(--transition-duration) ease-in-out;
+	min-height       : 3rem;
 
-	&:hover {
+	&:hover:not(:disabled) {
 	  background-color : var(--c-accent-hover);
+	}
+
+	.btn--loading {
+	  height : 1.875rem;
 	}
   }
 
@@ -41,7 +46,7 @@
 	color           : var(--c-accent);
 	transition      : color var(--transition-duration) ease-in-out;
 
-	&:hover {
+	&:hover:not(:disabled) {
 	  color : var(--c-accent-hover);
 	}
   }

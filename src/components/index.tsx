@@ -6,6 +6,7 @@ export { default as SEO } from "./SEO";
 export { Input, Select, TextArea, PhoneInputWrapper } from "./forms";
 export { default as IconWithText } from "./icon-with-text";
 export { default as LanguageToggle } from "./language-toggle";
+export { default as LoadingState } from "./loading-state";
 export { default as NoodleTitle } from "./noodle-title";
 export { ProjectSummary } from "./projects";
 export { default as RichText } from "./rich-text";
