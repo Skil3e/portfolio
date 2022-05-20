@@ -1029,7 +1029,11 @@ type ContentfulImageCropFocus =
 
 type ContentfulProfile = ContentfulEntry & ContentfulReference & Node & {
   readonly about: Maybe<ContentfulProfileAbout>;
+  /** Returns the first child node of type contentfulProfileSocialMediaJsonNode or null if there are no children of given type on this node */
+  readonly childContentfulProfileSocialMediaJsonNode: Maybe<contentfulProfileSocialMediaJsonNode>;
   readonly children: ReadonlyArray<Node>;
+  /** Returns all children nodes filtered by type contentfulProfileSocialMediaJsonNode */
+  readonly childrenContentfulProfileSocialMediaJsonNode: Maybe<ReadonlyArray<Maybe<contentfulProfileSocialMediaJsonNode>>>;
   readonly contentful_id: Scalars['String'];
   readonly createdAt: Maybe<Scalars['Date']>;
   readonly degree: Maybe<Scalars['String']>;
@@ -1042,6 +1046,7 @@ type ContentfulProfile = ContentfulEntry & ContentfulReference & Node & {
   readonly node_locale: Scalars['String'];
   readonly parent: Maybe<Node>;
   readonly skills: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
+  readonly socialMedia: Maybe<ReadonlyArray<Maybe<contentfulProfileSocialMediaJsonNode>>>;
   readonly spaceId: Maybe<Scalars['String']>;
   readonly sys: Maybe<ContentfulProfileSys>;
   readonly title: Maybe<Scalars['String']>;
@@ -1119,7 +1124,90 @@ type ContentfulProfileEdge = {
 
 type ContentfulProfileFieldsEnum =
   | 'about.raw'
+  | 'childContentfulProfileSocialMediaJsonNode.children'
+  | 'childContentfulProfileSocialMediaJsonNode.children.children'
+  | 'childContentfulProfileSocialMediaJsonNode.children.children.children'
+  | 'childContentfulProfileSocialMediaJsonNode.children.children.id'
+  | 'childContentfulProfileSocialMediaJsonNode.children.id'
+  | 'childContentfulProfileSocialMediaJsonNode.children.internal.content'
+  | 'childContentfulProfileSocialMediaJsonNode.children.internal.contentDigest'
+  | 'childContentfulProfileSocialMediaJsonNode.children.internal.description'
+  | 'childContentfulProfileSocialMediaJsonNode.children.internal.fieldOwners'
+  | 'childContentfulProfileSocialMediaJsonNode.children.internal.ignoreType'
+  | 'childContentfulProfileSocialMediaJsonNode.children.internal.mediaType'
+  | 'childContentfulProfileSocialMediaJsonNode.children.internal.owner'
+  | 'childContentfulProfileSocialMediaJsonNode.children.internal.type'
+  | 'childContentfulProfileSocialMediaJsonNode.children.parent.children'
+  | 'childContentfulProfileSocialMediaJsonNode.children.parent.id'
+  | 'childContentfulProfileSocialMediaJsonNode.id'
+  | 'childContentfulProfileSocialMediaJsonNode.internal.content'
+  | 'childContentfulProfileSocialMediaJsonNode.internal.contentDigest'
+  | 'childContentfulProfileSocialMediaJsonNode.internal.description'
+  | 'childContentfulProfileSocialMediaJsonNode.internal.fieldOwners'
+  | 'childContentfulProfileSocialMediaJsonNode.internal.ignoreType'
+  | 'childContentfulProfileSocialMediaJsonNode.internal.mediaType'
+  | 'childContentfulProfileSocialMediaJsonNode.internal.owner'
+  | 'childContentfulProfileSocialMediaJsonNode.internal.type'
+  | 'childContentfulProfileSocialMediaJsonNode.key'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.children'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.children.children'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.children.id'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.id'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.internal.content'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.internal.contentDigest'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.internal.description'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.internal.fieldOwners'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.internal.ignoreType'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.internal.mediaType'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.internal.owner'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.internal.type'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.parent.children'
+  | 'childContentfulProfileSocialMediaJsonNode.parent.parent.id'
+  | 'childContentfulProfileSocialMediaJsonNode.sys.type'
+  | 'childContentfulProfileSocialMediaJsonNode.value'
   | 'children'
+  | 'childrenContentfulProfileSocialMediaJsonNode'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.children'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.children.children'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.children.id'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.id'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.internal.content'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.internal.contentDigest'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.internal.description'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.internal.fieldOwners'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.internal.ignoreType'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.internal.mediaType'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.internal.owner'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.internal.type'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.parent.children'
+  | 'childrenContentfulProfileSocialMediaJsonNode.children.parent.id'
+  | 'childrenContentfulProfileSocialMediaJsonNode.id'
+  | 'childrenContentfulProfileSocialMediaJsonNode.internal.content'
+  | 'childrenContentfulProfileSocialMediaJsonNode.internal.contentDigest'
+  | 'childrenContentfulProfileSocialMediaJsonNode.internal.description'
+  | 'childrenContentfulProfileSocialMediaJsonNode.internal.fieldOwners'
+  | 'childrenContentfulProfileSocialMediaJsonNode.internal.ignoreType'
+  | 'childrenContentfulProfileSocialMediaJsonNode.internal.mediaType'
+  | 'childrenContentfulProfileSocialMediaJsonNode.internal.owner'
+  | 'childrenContentfulProfileSocialMediaJsonNode.internal.type'
+  | 'childrenContentfulProfileSocialMediaJsonNode.key'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.children'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.children.children'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.children.id'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.id'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.internal.content'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.internal.contentDigest'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.internal.description'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.internal.fieldOwners'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.internal.ignoreType'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.internal.mediaType'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.internal.owner'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.internal.type'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.parent.children'
+  | 'childrenContentfulProfileSocialMediaJsonNode.parent.parent.id'
+  | 'childrenContentfulProfileSocialMediaJsonNode.sys.type'
+  | 'childrenContentfulProfileSocialMediaJsonNode.value'
   | 'children.children'
   | 'children.children.children'
   | 'children.children.children.children'
@@ -1214,6 +1302,48 @@ type ContentfulProfileFieldsEnum =
   | 'parent.parent.parent.children'
   | 'parent.parent.parent.id'
   | 'skills'
+  | 'socialMedia'
+  | 'socialMedia.children'
+  | 'socialMedia.children.children'
+  | 'socialMedia.children.children.children'
+  | 'socialMedia.children.children.id'
+  | 'socialMedia.children.id'
+  | 'socialMedia.children.internal.content'
+  | 'socialMedia.children.internal.contentDigest'
+  | 'socialMedia.children.internal.description'
+  | 'socialMedia.children.internal.fieldOwners'
+  | 'socialMedia.children.internal.ignoreType'
+  | 'socialMedia.children.internal.mediaType'
+  | 'socialMedia.children.internal.owner'
+  | 'socialMedia.children.internal.type'
+  | 'socialMedia.children.parent.children'
+  | 'socialMedia.children.parent.id'
+  | 'socialMedia.id'
+  | 'socialMedia.internal.content'
+  | 'socialMedia.internal.contentDigest'
+  | 'socialMedia.internal.description'
+  | 'socialMedia.internal.fieldOwners'
+  | 'socialMedia.internal.ignoreType'
+  | 'socialMedia.internal.mediaType'
+  | 'socialMedia.internal.owner'
+  | 'socialMedia.internal.type'
+  | 'socialMedia.key'
+  | 'socialMedia.parent.children'
+  | 'socialMedia.parent.children.children'
+  | 'socialMedia.parent.children.id'
+  | 'socialMedia.parent.id'
+  | 'socialMedia.parent.internal.content'
+  | 'socialMedia.parent.internal.contentDigest'
+  | 'socialMedia.parent.internal.description'
+  | 'socialMedia.parent.internal.fieldOwners'
+  | 'socialMedia.parent.internal.ignoreType'
+  | 'socialMedia.parent.internal.mediaType'
+  | 'socialMedia.parent.internal.owner'
+  | 'socialMedia.parent.internal.type'
+  | 'socialMedia.parent.parent.children'
+  | 'socialMedia.parent.parent.id'
+  | 'socialMedia.sys.type'
+  | 'socialMedia.value'
   | 'spaceId'
   | 'sys.contentType.sys.id'
   | 'sys.contentType.sys.linkType'
@@ -1225,7 +1355,9 @@ type ContentfulProfileFieldsEnum =
 
 type ContentfulProfileFilterInput = {
   readonly about: InputMaybe<ContentfulProfileAboutFilterInput>;
+  readonly childContentfulProfileSocialMediaJsonNode: InputMaybe<contentfulProfileSocialMediaJsonNodeFilterInput>;
   readonly children: InputMaybe<NodeFilterListInput>;
+  readonly childrenContentfulProfileSocialMediaJsonNode: InputMaybe<contentfulProfileSocialMediaJsonNodeFilterListInput>;
   readonly contentful_id: InputMaybe<StringQueryOperatorInput>;
   readonly createdAt: InputMaybe<DateQueryOperatorInput>;
   readonly degree: InputMaybe<StringQueryOperatorInput>;
@@ -1238,6 +1370,7 @@ type ContentfulProfileFilterInput = {
   readonly node_locale: InputMaybe<StringQueryOperatorInput>;
   readonly parent: InputMaybe<NodeFilterInput>;
   readonly skills: InputMaybe<StringQueryOperatorInput>;
+  readonly socialMedia: InputMaybe<contentfulProfileSocialMediaJsonNodeFilterListInput>;
   readonly spaceId: InputMaybe<StringQueryOperatorInput>;
   readonly sys: InputMaybe<ContentfulProfileSysFilterInput>;
   readonly title: InputMaybe<StringQueryOperatorInput>;
@@ -4423,6 +4556,7 @@ type Query = {
   readonly allContentfulContentType: ContentfulContentTypeConnection;
   readonly allContentfulEntry: ContentfulEntryConnection;
   readonly allContentfulProfile: ContentfulProfileConnection;
+  readonly allContentfulProfileSocialMediaJsonNode: contentfulProfileSocialMediaJsonNodeConnection;
   readonly allContentfulProjectCategories: ContentfulProjectCategoriesConnection;
   readonly allContentfulProjectCategoriesDescriptionTextNode: contentfulProjectCategoriesDescriptionTextNodeConnection;
   readonly allContentfulProjects: ContentfulProjectsConnection;
@@ -4439,6 +4573,7 @@ type Query = {
   readonly contentfulContentType: Maybe<ContentfulContentType>;
   readonly contentfulEntry: Maybe<ContentfulEntry>;
   readonly contentfulProfile: Maybe<ContentfulProfile>;
+  readonly contentfulProfileSocialMediaJsonNode: Maybe<contentfulProfileSocialMediaJsonNode>;
   readonly contentfulProjectCategories: Maybe<ContentfulProjectCategories>;
   readonly contentfulProjectCategoriesDescriptionTextNode: Maybe<contentfulProjectCategoriesDescriptionTextNode>;
   readonly contentfulProjects: Maybe<ContentfulProjects>;
@@ -4483,6 +4618,14 @@ type Query_allContentfulProfileArgs = {
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
   sort: InputMaybe<ContentfulProfileSortInput>;
+};
+
+
+type Query_allContentfulProfileSocialMediaJsonNodeArgs = {
+  filter: InputMaybe<contentfulProfileSocialMediaJsonNodeFilterInput>;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+  sort: InputMaybe<contentfulProfileSocialMediaJsonNodeSortInput>;
 };
 
 
@@ -4637,7 +4780,9 @@ type Query_contentfulEntryArgs = {
 
 type Query_contentfulProfileArgs = {
   about: InputMaybe<ContentfulProfileAboutFilterInput>;
+  childContentfulProfileSocialMediaJsonNode: InputMaybe<contentfulProfileSocialMediaJsonNodeFilterInput>;
   children: InputMaybe<NodeFilterListInput>;
+  childrenContentfulProfileSocialMediaJsonNode: InputMaybe<contentfulProfileSocialMediaJsonNodeFilterListInput>;
   contentful_id: InputMaybe<StringQueryOperatorInput>;
   createdAt: InputMaybe<DateQueryOperatorInput>;
   degree: InputMaybe<StringQueryOperatorInput>;
@@ -4650,10 +4795,22 @@ type Query_contentfulProfileArgs = {
   node_locale: InputMaybe<StringQueryOperatorInput>;
   parent: InputMaybe<NodeFilterInput>;
   skills: InputMaybe<StringQueryOperatorInput>;
+  socialMedia: InputMaybe<contentfulProfileSocialMediaJsonNodeFilterListInput>;
   spaceId: InputMaybe<StringQueryOperatorInput>;
   sys: InputMaybe<ContentfulProfileSysFilterInput>;
   title: InputMaybe<StringQueryOperatorInput>;
   updatedAt: InputMaybe<DateQueryOperatorInput>;
+};
+
+
+type Query_contentfulProfileSocialMediaJsonNodeArgs = {
+  children: InputMaybe<NodeFilterListInput>;
+  id: InputMaybe<StringQueryOperatorInput>;
+  internal: InputMaybe<InternalFilterInput>;
+  key: InputMaybe<StringQueryOperatorInput>;
+  parent: InputMaybe<NodeFilterInput>;
+  sys: InputMaybe<contentfulProfileSocialMediaJsonNodeSysFilterInput>;
+  value: InputMaybe<StringQueryOperatorInput>;
 };
 
 
@@ -6364,6 +6521,220 @@ type TransformOptions = {
 
 type WebPOptions = {
   readonly quality: InputMaybe<Scalars['Int']>;
+};
+
+type contentfulProfileSocialMediaJsonNode = Node & {
+  readonly children: ReadonlyArray<Node>;
+  readonly id: Scalars['ID'];
+  readonly internal: Internal;
+  readonly key: Maybe<Scalars['String']>;
+  readonly parent: Maybe<Node>;
+  readonly sys: Maybe<contentfulProfileSocialMediaJsonNodeSys>;
+  readonly value: Maybe<Scalars['String']>;
+};
+
+type contentfulProfileSocialMediaJsonNodeConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<contentfulProfileSocialMediaJsonNodeEdge>;
+  readonly group: ReadonlyArray<contentfulProfileSocialMediaJsonNodeGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<contentfulProfileSocialMediaJsonNode>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type contentfulProfileSocialMediaJsonNodeConnection_distinctArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+};
+
+
+type contentfulProfileSocialMediaJsonNodeConnection_groupArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type contentfulProfileSocialMediaJsonNodeConnection_maxArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+};
+
+
+type contentfulProfileSocialMediaJsonNodeConnection_minArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+};
+
+
+type contentfulProfileSocialMediaJsonNodeConnection_sumArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+};
+
+type contentfulProfileSocialMediaJsonNodeEdge = {
+  readonly next: Maybe<contentfulProfileSocialMediaJsonNode>;
+  readonly node: contentfulProfileSocialMediaJsonNode;
+  readonly previous: Maybe<contentfulProfileSocialMediaJsonNode>;
+};
+
+type contentfulProfileSocialMediaJsonNodeFieldsEnum =
+  | 'children'
+  | 'children.children'
+  | 'children.children.children'
+  | 'children.children.children.children'
+  | 'children.children.children.id'
+  | 'children.children.id'
+  | 'children.children.internal.content'
+  | 'children.children.internal.contentDigest'
+  | 'children.children.internal.description'
+  | 'children.children.internal.fieldOwners'
+  | 'children.children.internal.ignoreType'
+  | 'children.children.internal.mediaType'
+  | 'children.children.internal.owner'
+  | 'children.children.internal.type'
+  | 'children.children.parent.children'
+  | 'children.children.parent.id'
+  | 'children.id'
+  | 'children.internal.content'
+  | 'children.internal.contentDigest'
+  | 'children.internal.description'
+  | 'children.internal.fieldOwners'
+  | 'children.internal.ignoreType'
+  | 'children.internal.mediaType'
+  | 'children.internal.owner'
+  | 'children.internal.type'
+  | 'children.parent.children'
+  | 'children.parent.children.children'
+  | 'children.parent.children.id'
+  | 'children.parent.id'
+  | 'children.parent.internal.content'
+  | 'children.parent.internal.contentDigest'
+  | 'children.parent.internal.description'
+  | 'children.parent.internal.fieldOwners'
+  | 'children.parent.internal.ignoreType'
+  | 'children.parent.internal.mediaType'
+  | 'children.parent.internal.owner'
+  | 'children.parent.internal.type'
+  | 'children.parent.parent.children'
+  | 'children.parent.parent.id'
+  | 'id'
+  | 'internal.content'
+  | 'internal.contentDigest'
+  | 'internal.description'
+  | 'internal.fieldOwners'
+  | 'internal.ignoreType'
+  | 'internal.mediaType'
+  | 'internal.owner'
+  | 'internal.type'
+  | 'key'
+  | 'parent.children'
+  | 'parent.children.children'
+  | 'parent.children.children.children'
+  | 'parent.children.children.id'
+  | 'parent.children.id'
+  | 'parent.children.internal.content'
+  | 'parent.children.internal.contentDigest'
+  | 'parent.children.internal.description'
+  | 'parent.children.internal.fieldOwners'
+  | 'parent.children.internal.ignoreType'
+  | 'parent.children.internal.mediaType'
+  | 'parent.children.internal.owner'
+  | 'parent.children.internal.type'
+  | 'parent.children.parent.children'
+  | 'parent.children.parent.id'
+  | 'parent.id'
+  | 'parent.internal.content'
+  | 'parent.internal.contentDigest'
+  | 'parent.internal.description'
+  | 'parent.internal.fieldOwners'
+  | 'parent.internal.ignoreType'
+  | 'parent.internal.mediaType'
+  | 'parent.internal.owner'
+  | 'parent.internal.type'
+  | 'parent.parent.children'
+  | 'parent.parent.children.children'
+  | 'parent.parent.children.id'
+  | 'parent.parent.id'
+  | 'parent.parent.internal.content'
+  | 'parent.parent.internal.contentDigest'
+  | 'parent.parent.internal.description'
+  | 'parent.parent.internal.fieldOwners'
+  | 'parent.parent.internal.ignoreType'
+  | 'parent.parent.internal.mediaType'
+  | 'parent.parent.internal.owner'
+  | 'parent.parent.internal.type'
+  | 'parent.parent.parent.children'
+  | 'parent.parent.parent.id'
+  | 'sys.type'
+  | 'value';
+
+type contentfulProfileSocialMediaJsonNodeFilterInput = {
+  readonly children: InputMaybe<NodeFilterListInput>;
+  readonly id: InputMaybe<StringQueryOperatorInput>;
+  readonly internal: InputMaybe<InternalFilterInput>;
+  readonly key: InputMaybe<StringQueryOperatorInput>;
+  readonly parent: InputMaybe<NodeFilterInput>;
+  readonly sys: InputMaybe<contentfulProfileSocialMediaJsonNodeSysFilterInput>;
+  readonly value: InputMaybe<StringQueryOperatorInput>;
+};
+
+type contentfulProfileSocialMediaJsonNodeFilterListInput = {
+  readonly elemMatch: InputMaybe<contentfulProfileSocialMediaJsonNodeFilterInput>;
+};
+
+type contentfulProfileSocialMediaJsonNodeGroupConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<contentfulProfileSocialMediaJsonNodeEdge>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+  readonly group: ReadonlyArray<contentfulProfileSocialMediaJsonNodeGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<contentfulProfileSocialMediaJsonNode>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type contentfulProfileSocialMediaJsonNodeGroupConnection_distinctArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+};
+
+
+type contentfulProfileSocialMediaJsonNodeGroupConnection_groupArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type contentfulProfileSocialMediaJsonNodeGroupConnection_maxArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+};
+
+
+type contentfulProfileSocialMediaJsonNodeGroupConnection_minArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+};
+
+
+type contentfulProfileSocialMediaJsonNodeGroupConnection_sumArgs = {
+  field: contentfulProfileSocialMediaJsonNodeFieldsEnum;
+};
+
+type contentfulProfileSocialMediaJsonNodeSortInput = {
+  readonly fields: InputMaybe<ReadonlyArray<InputMaybe<contentfulProfileSocialMediaJsonNodeFieldsEnum>>>;
+  readonly order: InputMaybe<ReadonlyArray<InputMaybe<SortOrderEnum>>>;
+};
+
+type contentfulProfileSocialMediaJsonNodeSys = {
+  readonly type: Maybe<Scalars['String']>;
+};
+
+type contentfulProfileSocialMediaJsonNodeSysFilterInput = {
+  readonly type: InputMaybe<StringQueryOperatorInput>;
 };
 
 type contentfulProjectCategoriesDescriptionTextNode = Node & {

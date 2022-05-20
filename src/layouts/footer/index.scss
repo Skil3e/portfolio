@@ -1,12 +1,18 @@
 @use "src/styles/mixins/index" as mx;
 
 .footer {
-  border-block-start : 1px solid var(--c-bg-0);
 }
 
 .footer__copyright {
   display        : flex;
   align-items    : center;
-  height         : var(--size-header);
-  padding-inline : var(--size-md);
+  flex-direction : column;
+  gap            : var(--size-lg);
+  padding        : var(--size-lg);
+  text-align     : center;
+  @include mx.desktop() {
+	justify-content : space-between;
+	flex-direction  : row;
+	padding         : var(--size-md) var(--size-lg);
+  }
 }

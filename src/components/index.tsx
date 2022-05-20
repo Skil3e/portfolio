@@ -10,4 +10,5 @@ export { default as LoadingState } from "./loading-state";
 export { default as NoodleTitle } from "./noodle-title";
 export { ProjectSummary } from "./projects";
 export { default as RichText } from "./rich-text";
+export { default as SocialMedia } from "./social-media";
 export { default as Flag } from "./flag";

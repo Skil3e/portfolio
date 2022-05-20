@@ -9,4 +9,9 @@ export type TypeProfile = {
     email: string
     skills: string[]
     about: RenderRichTextData<any>
+    socialMedia: {
+        id: string
+        key: string
+        value: string
+    }[]
 }
