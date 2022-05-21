@@ -1,28 +1,16 @@
 @font-face {
-  font-family : "Agency";
-  src         : url("/fonts/AgencyFB-Bold.ttf");
-  font-style  : normal;
-  font-weight : normal;
+  font-family  : "Agency";
+  src          : url("/fonts/AgencyFB-Bold.ttf");
+  font-style   : normal;
+  font-weight  : normal;
+  font-display : swap;
 }
 
 @font-face {
-  font-family : "Manrope";
-  src         : url("/fonts/Manrope-Regular.ttf");
-  font-style  : normal;
-  font-weight : 400;
-}
-
-@font-face {
-  font-family : "Manrope";
-  src         : url("/fonts/Manrope-Bold.ttf");
-  font-style  : normal;
-  font-weight : 700;
-}
-
-@font-face {
-  font-family : "Manrope";
-  src         : url("/fonts/Manrope-ExtraBold.ttf");
-  font-style  : normal;
-  font-weight : 900;
+  font-family  : "Manrope";
+  src          : url("/fonts/Manrope-VariableFont_wght.ttf");
+  font-style   : normal;
+  font-weight  : 200 800;
+  font-display : optional;
 }
 

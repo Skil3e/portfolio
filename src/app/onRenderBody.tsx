@@ -18,27 +18,11 @@ const onRenderBody: GatsbySSR["onRenderBody"] = ( { setHeadComponents } ) => {
             <link
                 key="manrope"
                 rel="preload"
-                href="/fonts/Manrope-Regular.ttf"
+                href="/fonts/Manrope-VariableFont_wght.ttf"
                 as="font"
                 type="font/ttf"
                 crossOrigin="anonymous"
-            />,
-            <link
-                key="manrope-bold"
-                rel="preload"
-                href="/fonts/Manrope-Bold.ttf"
-                as="font"
-                type="font/ttf"
-                crossOrigin="anonymous"
-            />,
-            <link
-                key="manrope-extra-bold"
-                rel="preload"
-                href="/fonts/Manrope-ExtraBold.ttf"
-                as="font"
-                type="font/ttf"
-                crossOrigin="anonymous"
-            />,
+            />
         ] )
     }
 }
