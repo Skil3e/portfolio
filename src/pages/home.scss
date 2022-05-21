@@ -25,7 +25,6 @@
   --circle-offset-x  : .85em;
   --circle-offset-y  : calc(var(--circle-offset-x) * -1);
   margin-block-start : var(--circle-offset-x);
-  margin-inline-end  : var(--circle-offset-x);
   max-width          : 320px;
   width              : 100%;
   align-self         : start;
