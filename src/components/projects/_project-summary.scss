@@ -7,7 +7,7 @@
 
 .project-summary__link {
   display          : block;
-  background-color : var(--c-grey-8);
+  background-color : var(--c-bg-2);
   border-radius    : var(--size-sm);
   overflow         : hidden;
   position         : relative;
@@ -39,7 +39,7 @@
   width            : 64px;
   aspect-ratio     : 1 / 1;
   padding          : var(--size-md);
-  background-color : var(--c-grey-6);
+  background-color : var(--c-bg-3);
   border-radius    : var(--size-lg);
   transition       : transform var(--transition-duration);
   box-shadow       : var(--shadow-1);

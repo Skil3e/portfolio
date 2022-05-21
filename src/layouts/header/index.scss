@@ -58,6 +58,7 @@
   justify-content     : center;
   margin-inline-start : auto;
   background-color    : var(--c-accent);
+  color               : var(--c-bg-1);
   height              : 100%;
   aspect-ratio        : 1 / 1;
   @include mx.desktop {

@@ -32,7 +32,8 @@ const ProjectSummary = <T extends ElementType = "li", H extends ElementType = "h
                     </svg>
                 </div>
                 { project.introImage &&
-                    <GatsbyImage className={ "project-summary__image" } objectFit={ "contain" } image={ project.introImage?.localFile.childImageSharp.gatsbyImageData } alt={ "Manos Menexis" }/> }
+                    <GatsbyImage className={ "project-summary__image" } objectFit={ "contain" } image={ project.introImage?.localFile.childImageSharp.gatsbyImageData } alt={ "Manos Menexis" }/>
+                }
                 <div className={ "project-summary__info" }>
                     <Title className={ "project-summary__title" }>{ project.title.replace( " Website", "" ) }</Title>
                 </div>
