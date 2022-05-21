@@ -63,7 +63,7 @@ const Header: FC<React.PropsWithChildren<IHeader>> = () => {
             <header className={ classNames( "header", scrolled && "header--scrolled" ) } data-infoopen={ isMobile && isSidebarOpen }>
                 <Button to={ "/" } look={ "minimal" }><strong>{ profile.firstname } { profile.lastname }</strong></Button>
                 <Button look={ "empty" } className={ "header__quick-info__toggle" } onClick={ toggleSidebar }>
-                    <MenuToggle isOpen={ isSidebarOpen }/>
+                    <MenuToggle isOpen={ isSidebarOpen } label={ "Show more information" }/>
                 </Button>
                 <ul className={ "header__quick-info" } role={ "list" } data-infoopen={ isSidebarOpen }>
                     <IconWithText as={ "li" } Icon={ Degree } label={ profile.degree }/>
