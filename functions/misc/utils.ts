@@ -1,4 +1,4 @@
-import { RecaptchaResponse } from "../src/types";
+import { RecaptchaResponse } from "../../src/types";
 import fetch from "node-fetch";
 
 export async function getRecaptchaServer( recaptcha_response: string ): Promise<RecaptchaResponse> {
