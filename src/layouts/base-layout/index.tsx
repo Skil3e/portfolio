@@ -11,6 +11,7 @@ interface IBaseLayout {
     type?: "website",
     staggerChildren?: number
     removeHeaderPadding?: boolean
+    className?: string
 }
 
 const BaseLayout: FC<React.PropsWithChildren<IBaseLayout>> = ( {
@@ -21,6 +22,7 @@ const BaseLayout: FC<React.PropsWithChildren<IBaseLayout>> = ( {
                                                                    type,
                                                                    staggerChildren = .2,
                                                                    removeHeaderPadding,
+                                                                   className
                                                                } ) => {
     const container = {
         hidden: {
@@ -37,7 +39,7 @@ const BaseLayout: FC<React.PropsWithChildren<IBaseLayout>> = ( {
         <>
             <SEO title={ title } description={ description } type={ type } image={ image }/>
             <Header/>
-            <motion.main className={ classNames( "base-layout__main", removeHeaderPadding && "remove-padding" ) } variants={ container } initial={ "hidden" } animate={ "show" }
+            <motion.main className={ classNames( "base-layout__main", removeHeaderPadding && "remove-padding", className ) } variants={ container } initial={ "hidden" } animate={ "show" }
                          whileInView={ "inView" }
                          exit={ "hidden" }>
                 { children }

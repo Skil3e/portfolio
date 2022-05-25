@@ -1,0 +1,11 @@
+.not-found {
+  --flow-space    : var(--size-md);
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  text-align      : center;
+
+  h1 {
+	font-size : var(--font-size-3);
+  }
+}
