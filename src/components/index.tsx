@@ -1,6 +1,7 @@
 export { default as Button } from "./button";
 export { default as ContactForm } from "./contact-form";
 export { default as Container } from "./container";
+export { default as Cursor } from "./cursor";
 export { default as Experience } from "./experience";
 export { default as SEO } from "./SEO";
 export { Input, Select, TextArea, PhoneInputWrapper } from "./forms";

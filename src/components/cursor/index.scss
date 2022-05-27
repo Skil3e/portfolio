@@ -1,0 +1,14 @@
+@use "src/styles/mixins" as mx;
+
+.cursor {
+  position       : fixed;
+  left           : 0;
+  top            : 0;
+  aspect-ratio   : 1/1;
+  border-radius  : 100%;
+  border         : 2px solid var(--c-accent);
+  pointer-events : none;
+  @include mx.mobile() {
+	display : none;
+  }
+}
