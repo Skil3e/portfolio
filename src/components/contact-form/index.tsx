@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { Button, Input, TextArea } from "@components";
 import { useForm } from "react-hook-form";
-import { TContactDetails } from "@types";
+import { TContactDetails, TypeReduceMotion } from "@types";
 import { sendMail } from "@services";
 import t from "@i18n";
 import ReCaptchaTerms from "./ReCaptchaTerms";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { fade, fadeLeft, fadeRight } from "@animations";
 
 type TypeContactForm = {}
@@ -19,6 +19,7 @@ const defaultValues = {
 };
 
 const ContactForm: FC<TypeContactForm> = () => {
+    const reduceMotion = useReducedMotion()
     const { register, handleSubmit, reset, setError, clearErrors, formState: { errors, isSubmitting, isSubmitSuccessful, } } = useForm<TContactDetails>();
 
     const onSubmit = handleSubmit( async ( data ) => {
@@ -45,7 +46,13 @@ const ContactForm: FC<TypeContactForm> = () => {
     } );
     return (
         <AnimatePresence>
-            <div className={ "contact-form" }>
+            <motion.div
+                className={ "contact-form" }
+                variants={ contactFormVariants( reduceMotion ) }
+                initial={ "hidden" }
+                whileInView={ "show" }
+                viewport={ { margin: "0px 0px -250px 0px", once: true } }
+            >
                 { isSubmitSuccessful ? (
                     <motion.div className={ "contact-form__success-message" } variants={ fade } initial={ "hidden" } animate={ "show" } exit={ "hidden" }>
                         <motion.div className={ "contact-form__success-message__info flow" } variants={ fadeRight }>
@@ -125,9 +132,23 @@ const ContactForm: FC<TypeContactForm> = () => {
 
                       </motion.form>
                   ) }
-            </div>
+            </motion.div>
         </AnimatePresence>
     );
 };
 
 export default ContactForm;
+
+const contactFormVariants = ( reduceMotion: TypeReduceMotion ) => ({
+    hidden: {
+        y      : reduceMotion ? 0 : 40,
+        opacity: 0,
+    },
+    show  : {
+        y         : 0,
+        opacity   : 1,
+        transition: {
+            ease: "easeInOut",
+        },
+    },
+});

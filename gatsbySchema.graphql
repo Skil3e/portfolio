@@ -140,7 +140,7 @@ interface RemoteFile {
         Ignored if layout = FLUID.
         """
         width: Int
-    ): JSON
+    ): GatsbyImageData!
     height: Int
     id: ID!
     mimeType: String!
@@ -252,7 +252,7 @@ type ContentfulAsset implements ContentfulReference & Node & RemoteFile {
         Ignored if layout = FLUID.
         """
         width: Int
-    ): JSON
+    ): GatsbyImageData!
     gatsbyImageData(
         """
 
@@ -507,6 +507,102 @@ type ContentfulEntryGroupConnection {
     totalCount: Int!
 }
 
+type ContentfulProfile implements ContentfulEntry & ContentfulReference & Node {
+    about: ContentfulProfileAbout
+    "Returns the first child node of type contentfulProfileSocialMediaJsonNode or null if there are no children of given type on this node"
+    childContentfulProfileSocialMediaJsonNode: contentfulProfileSocialMediaJsonNode
+    children: [Node!]!
+    "Returns all children nodes filtered by type contentfulProfileSocialMediaJsonNode"
+    childrenContentfulProfileSocialMediaJsonNode: [contentfulProfileSocialMediaJsonNode]
+    contentful_id: String!
+    createdAt(
+        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
+        difference: String,
+        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
+        formatString: String,
+        "Returns a string generated with Moment.js' `fromNow` function"
+        fromNow: Boolean,
+        "Configures the locale Moment.js will use to format the date."
+        locale: String
+    ): Date
+    degree: String
+    email: String
+    firstname: String
+    id: ID!
+    internal: Internal!
+    lastname: String
+    location: String
+    node_locale: String!
+    parent: Node
+    skills: [String]
+    socialMedia: [contentfulProfileSocialMediaJsonNode]
+    spaceId: String
+    sys: ContentfulProfileSys
+    title: String
+    updatedAt(
+        "Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\"."
+        difference: String,
+        "Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens."
+        formatString: String,
+        "Returns a string generated with Moment.js' `fromNow` function"
+        fromNow: Boolean,
+        "Configures the locale Moment.js will use to format the date."
+        locale: String
+    ): Date
+}
+
+type ContentfulProfileAbout {
+    raw: String
+}
+
+type ContentfulProfileConnection {
+    distinct(field: ContentfulProfileFieldsEnum!): [String!]!
+    edges: [ContentfulProfileEdge!]!
+    group(field: ContentfulProfileFieldsEnum!, limit: Int, skip: Int): [ContentfulProfileGroupConnection!]!
+    max(field: ContentfulProfileFieldsEnum!): Float
+    min(field: ContentfulProfileFieldsEnum!): Float
+    nodes: [ContentfulProfile!]!
+    pageInfo: PageInfo!
+    sum(field: ContentfulProfileFieldsEnum!): Float
+    totalCount: Int!
+}
+
+type ContentfulProfileEdge {
+    next: ContentfulProfile
+    node: ContentfulProfile!
+    previous: ContentfulProfile
+}
+
+type ContentfulProfileGroupConnection {
+    distinct(field: ContentfulProfileFieldsEnum!): [String!]!
+    edges: [ContentfulProfileEdge!]!
+    field: String!
+    fieldValue: String
+    group(field: ContentfulProfileFieldsEnum!, limit: Int, skip: Int): [ContentfulProfileGroupConnection!]!
+    max(field: ContentfulProfileFieldsEnum!): Float
+    min(field: ContentfulProfileFieldsEnum!): Float
+    nodes: [ContentfulProfile!]!
+    pageInfo: PageInfo!
+    sum(field: ContentfulProfileFieldsEnum!): Float
+    totalCount: Int!
+}
+
+type ContentfulProfileSys {
+    contentType: ContentfulProfileSysContentType
+    revision: Int
+    type: String
+}
+
+type ContentfulProfileSysContentType {
+    sys: ContentfulProfileSysContentTypeSys
+}
+
+type ContentfulProfileSysContentTypeSys {
+    id: String
+    linkType: String
+    type: String
+}
+
 type ContentfulProjectCategories implements ContentfulEntry & ContentfulReference & Node {
     "Returns the first child node of type contentfulProjectCategoriesDescriptionTextNode or null if there are no children of given type on this node"
     childContentfulProjectCategoriesDescriptionTextNode: contentfulProjectCategoriesDescriptionTextNode
@@ -614,6 +710,7 @@ type ContentfulProjects implements ContentfulEntry & ContentfulReference & Node 
     id: ID!
     internal: Internal!
     introImage: ContentfulAsset
+    isFeatured: Boolean
     node_locale: String!
     parent: Node
     slug: String
@@ -1072,7 +1169,7 @@ type ImageSharp implements Node {
         Ignored if layout = FLUID.
         """
         width: Int
-    ): JSON!
+    ): GatsbyImageData!
     id: ID!
     internal: Internal!
     original: ImageSharpOriginal
@@ -1189,6 +1286,8 @@ type Query {
     allContentfulAsset(filter: ContentfulAssetFilterInput, limit: Int, skip: Int, sort: ContentfulAssetSortInput): ContentfulAssetConnection!
     allContentfulContentType(filter: ContentfulContentTypeFilterInput, limit: Int, skip: Int, sort: ContentfulContentTypeSortInput): ContentfulContentTypeConnection!
     allContentfulEntry(filter: ContentfulEntryFilterInput, limit: Int, skip: Int, sort: ContentfulEntrySortInput): ContentfulEntryConnection!
+    allContentfulProfile(filter: ContentfulProfileFilterInput, limit: Int, skip: Int, sort: ContentfulProfileSortInput): ContentfulProfileConnection!
+    allContentfulProfileSocialMediaJsonNode(filter: contentfulProfileSocialMediaJsonNodeFilterInput, limit: Int, skip: Int, sort: contentfulProfileSocialMediaJsonNodeSortInput): contentfulProfileSocialMediaJsonNodeConnection!
     allContentfulProjectCategories(filter: ContentfulProjectCategoriesFilterInput, limit: Int, skip: Int, sort: ContentfulProjectCategoriesSortInput): ContentfulProjectCategoriesConnection!
     allContentfulProjectCategoriesDescriptionTextNode(filter: contentfulProjectCategoriesDescriptionTextNodeFilterInput, limit: Int, skip: Int, sort: contentfulProjectCategoriesDescriptionTextNodeSortInput): contentfulProjectCategoriesDescriptionTextNodeConnection!
     allContentfulProjects(filter: ContentfulProjectsFilterInput, limit: Int, skip: Int, sort: ContentfulProjectsSortInput): ContentfulProjectsConnection!
@@ -1201,16 +1300,18 @@ type Query {
     allSitePage(filter: SitePageFilterInput, limit: Int, skip: Int, sort: SitePageSortInput): SitePageConnection!
     allSitePlugin(filter: SitePluginFilterInput, limit: Int, skip: Int, sort: SitePluginSortInput): SitePluginConnection!
     allThemeI18N(filter: ThemeI18nFilterInput, limit: Int, skip: Int, sort: ThemeI18nSortInput): ThemeI18nConnection!
-    contentfulAsset(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, fields: ContentfulAssetFieldsFilterInput, file: ContentfulAssetFileFilterInput, filename: StringQueryOperatorInput, filesize: IntQueryOperatorInput, gatsbyImage: JSONQueryOperatorInput, gatsbyImageData: JSONQueryOperatorInput, height: IntQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, localFile: FileFilterInput, mimeType: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, placeholderUrl: StringQueryOperatorInput, publicUrl: StringQueryOperatorInput, resize: RemoteFileResizeFilterInput, size: IntQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulAssetSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, url: StringQueryOperatorInput, width: IntQueryOperatorInput): ContentfulAsset
+    contentfulAsset(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: StringQueryOperatorInput, fields: ContentfulAssetFieldsFilterInput, file: ContentfulAssetFileFilterInput, filename: StringQueryOperatorInput, filesize: IntQueryOperatorInput, gatsbyImage: GatsbyImageDataQueryOperatorInput, gatsbyImageData: JSONQueryOperatorInput, height: IntQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, localFile: FileFilterInput, mimeType: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, placeholderUrl: StringQueryOperatorInput, publicUrl: StringQueryOperatorInput, resize: RemoteFileResizeFilterInput, size: IntQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulAssetSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, url: StringQueryOperatorInput, width: IntQueryOperatorInput): ContentfulAsset
     contentfulContentType(children: NodeFilterListInput, description: StringQueryOperatorInput, displayField: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, parent: NodeFilterInput, sys: ContentfulContentTypeSysFilterInput): ContentfulContentType
     contentfulEntry(children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput): ContentfulEntry
+    contentfulProfile(about: ContentfulProfileAboutFilterInput, childContentfulProfileSocialMediaJsonNode: contentfulProfileSocialMediaJsonNodeFilterInput, children: NodeFilterListInput, childrenContentfulProfileSocialMediaJsonNode: contentfulProfileSocialMediaJsonNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, degree: StringQueryOperatorInput, email: StringQueryOperatorInput, firstname: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, lastname: StringQueryOperatorInput, location: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, skills: StringQueryOperatorInput, socialMedia: contentfulProfileSocialMediaJsonNodeFilterListInput, spaceId: StringQueryOperatorInput, sys: ContentfulProfileSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput): ContentfulProfile
+    contentfulProfileSocialMediaJsonNode(children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, key: StringQueryOperatorInput, parent: NodeFilterInput, sys: contentfulProfileSocialMediaJsonNodeSysFilterInput, value: StringQueryOperatorInput): contentfulProfileSocialMediaJsonNode
     contentfulProjectCategories(childContentfulProjectCategoriesDescriptionTextNode: contentfulProjectCategoriesDescriptionTextNodeFilterInput, children: NodeFilterListInput, childrenContentfulProjectCategoriesDescriptionTextNode: contentfulProjectCategoriesDescriptionTextNodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: contentfulProjectCategoriesDescriptionTextNodeFilterInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, projects: ContentfulProjectsFilterListInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulProjectCategoriesSysFilterInput, updatedAt: DateQueryOperatorInput): ContentfulProjectCategories
     contentfulProjectCategoriesDescriptionTextNode(children: NodeFilterListInput, description: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, sys: contentfulProjectCategoriesDescriptionTextNodeSysFilterInput): contentfulProjectCategoriesDescriptionTextNode
-    contentfulProjects(categories: ContentfulProjectCategoriesFilterListInput, children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: ContentfulProjectsDescriptionFilterInput, featureImage: ContentfulAssetFilterInput, gallery: ContentfulAssetFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, introImage: ContentfulAssetFilterInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulProjectsSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, websiteUrl: StringQueryOperatorInput): ContentfulProjects
+    contentfulProjects(categories: ContentfulProjectCategoriesFilterListInput, children: NodeFilterListInput, contentful_id: StringQueryOperatorInput, createdAt: DateQueryOperatorInput, description: ContentfulProjectsDescriptionFilterInput, featureImage: ContentfulAssetFilterInput, gallery: ContentfulAssetFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, introImage: ContentfulAssetFilterInput, isFeatured: BooleanQueryOperatorInput, node_locale: StringQueryOperatorInput, parent: NodeFilterInput, slug: StringQueryOperatorInput, spaceId: StringQueryOperatorInput, sys: ContentfulProjectsSysFilterInput, title: StringQueryOperatorInput, updatedAt: DateQueryOperatorInput, websiteUrl: StringQueryOperatorInput): ContentfulProjects
     directory(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, changeTime: DateQueryOperatorInput, children: NodeFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: FloatQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): Directory
     file(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, childImageSharp: ImageSharpFilterInput, children: NodeFilterListInput, childrenImageSharp: ImageSharpFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: FloatQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, publicURL: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput, url: StringQueryOperatorInput): File
-    imageSharp(children: NodeFilterListInput, fixed: ImageSharpFixedFilterInput, fluid: ImageSharpFluidFilterInput, gatsbyImageData: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, original: ImageSharpOriginalFilterInput, parent: NodeFilterInput, resize: ImageSharpResizeFilterInput): ImageSharp
-    site(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, host: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, jsxRuntime: StringQueryOperatorInput, parent: NodeFilterInput, pathPrefix: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, port: IntQueryOperatorInput, siteMetadata: SiteSiteMetadataFilterInput, trailingSlash: StringQueryOperatorInput): Site
+    imageSharp(children: NodeFilterListInput, fixed: ImageSharpFixedFilterInput, fluid: ImageSharpFluidFilterInput, gatsbyImageData: GatsbyImageDataQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, original: ImageSharpOriginalFilterInput, parent: NodeFilterInput, resize: ImageSharpResizeFilterInput): ImageSharp
+    site(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, flags: SiteFlagsFilterInput, graphqlTypegen: BooleanQueryOperatorInput, host: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, jsxRuntime: StringQueryOperatorInput, parent: NodeFilterInput, pathPrefix: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, port: IntQueryOperatorInput, siteMetadata: SiteSiteMetadataFilterInput, trailingSlash: StringQueryOperatorInput): Site
     siteBuildMetadata(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput): SiteBuildMetadata
     siteFunction(absoluteCompiledFilePath: StringQueryOperatorInput, children: NodeFilterListInput, functionRoute: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, matchPath: StringQueryOperatorInput, originalAbsoluteFilePath: StringQueryOperatorInput, originalRelativeFilePath: StringQueryOperatorInput, parent: NodeFilterInput, pluginName: StringQueryOperatorInput, relativeCompiledFilePath: StringQueryOperatorInput): SiteFunction
     sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, matchPath: StringQueryOperatorInput, pageContext: JSONQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput): SitePage
@@ -1236,6 +1337,8 @@ type Site implements Node {
         locale: String
     ): Date
     children: [Node!]!
+    flags: SiteFlags
+    graphqlTypegen: Boolean
     host: String
     id: ID!
     internal: Internal!
@@ -1313,6 +1416,10 @@ type SiteEdge {
     next: Site
     node: Site!
     previous: Site
+}
+
+type SiteFlags {
+    GRAPHQL_TYPEGEN: Boolean
 }
 
 type SiteFunction implements Node {
@@ -1516,6 +1623,52 @@ type ThemeI18nGroupConnection {
     pageInfo: PageInfo!
     sum(field: ThemeI18nFieldsEnum!): Float
     totalCount: Int!
+}
+
+type contentfulProfileSocialMediaJsonNode implements Node {
+    children: [Node!]!
+    id: ID!
+    internal: Internal!
+    key: String
+    parent: Node
+    sys: contentfulProfileSocialMediaJsonNodeSys
+    value: String
+}
+
+type contentfulProfileSocialMediaJsonNodeConnection {
+    distinct(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!): [String!]!
+    edges: [contentfulProfileSocialMediaJsonNodeEdge!]!
+    group(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!, limit: Int, skip: Int): [contentfulProfileSocialMediaJsonNodeGroupConnection!]!
+    max(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!): Float
+    min(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!): Float
+    nodes: [contentfulProfileSocialMediaJsonNode!]!
+    pageInfo: PageInfo!
+    sum(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!): Float
+    totalCount: Int!
+}
+
+type contentfulProfileSocialMediaJsonNodeEdge {
+    next: contentfulProfileSocialMediaJsonNode
+    node: contentfulProfileSocialMediaJsonNode!
+    previous: contentfulProfileSocialMediaJsonNode
+}
+
+type contentfulProfileSocialMediaJsonNodeGroupConnection {
+    distinct(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!): [String!]!
+    edges: [contentfulProfileSocialMediaJsonNodeEdge!]!
+    field: String!
+    fieldValue: String
+    group(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!, limit: Int, skip: Int): [contentfulProfileSocialMediaJsonNodeGroupConnection!]!
+    max(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!): Float
+    min(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!): Float
+    nodes: [contentfulProfileSocialMediaJsonNode!]!
+    pageInfo: PageInfo!
+    sum(field: contentfulProfileSocialMediaJsonNodeFieldsEnum!): Float
+    totalCount: Int!
+}
+
+type contentfulProfileSocialMediaJsonNodeSys {
+    type: String
 }
 
 type contentfulProjectCategoriesDescriptionTextNode implements Node {
@@ -2046,6 +2199,238 @@ enum ContentfulImageCropFocus {
     TOP_RIGHT
 }
 
+enum ContentfulProfileFieldsEnum {
+    about___raw
+    childContentfulProfileSocialMediaJsonNode___children
+    childContentfulProfileSocialMediaJsonNode___children___children
+    childContentfulProfileSocialMediaJsonNode___children___children___children
+    childContentfulProfileSocialMediaJsonNode___children___children___id
+    childContentfulProfileSocialMediaJsonNode___children___id
+    childContentfulProfileSocialMediaJsonNode___children___internal___content
+    childContentfulProfileSocialMediaJsonNode___children___internal___contentDigest
+    childContentfulProfileSocialMediaJsonNode___children___internal___description
+    childContentfulProfileSocialMediaJsonNode___children___internal___fieldOwners
+    childContentfulProfileSocialMediaJsonNode___children___internal___ignoreType
+    childContentfulProfileSocialMediaJsonNode___children___internal___mediaType
+    childContentfulProfileSocialMediaJsonNode___children___internal___owner
+    childContentfulProfileSocialMediaJsonNode___children___internal___type
+    childContentfulProfileSocialMediaJsonNode___children___parent___children
+    childContentfulProfileSocialMediaJsonNode___children___parent___id
+    childContentfulProfileSocialMediaJsonNode___id
+    childContentfulProfileSocialMediaJsonNode___internal___content
+    childContentfulProfileSocialMediaJsonNode___internal___contentDigest
+    childContentfulProfileSocialMediaJsonNode___internal___description
+    childContentfulProfileSocialMediaJsonNode___internal___fieldOwners
+    childContentfulProfileSocialMediaJsonNode___internal___ignoreType
+    childContentfulProfileSocialMediaJsonNode___internal___mediaType
+    childContentfulProfileSocialMediaJsonNode___internal___owner
+    childContentfulProfileSocialMediaJsonNode___internal___type
+    childContentfulProfileSocialMediaJsonNode___key
+    childContentfulProfileSocialMediaJsonNode___parent___children
+    childContentfulProfileSocialMediaJsonNode___parent___children___children
+    childContentfulProfileSocialMediaJsonNode___parent___children___id
+    childContentfulProfileSocialMediaJsonNode___parent___id
+    childContentfulProfileSocialMediaJsonNode___parent___internal___content
+    childContentfulProfileSocialMediaJsonNode___parent___internal___contentDigest
+    childContentfulProfileSocialMediaJsonNode___parent___internal___description
+    childContentfulProfileSocialMediaJsonNode___parent___internal___fieldOwners
+    childContentfulProfileSocialMediaJsonNode___parent___internal___ignoreType
+    childContentfulProfileSocialMediaJsonNode___parent___internal___mediaType
+    childContentfulProfileSocialMediaJsonNode___parent___internal___owner
+    childContentfulProfileSocialMediaJsonNode___parent___internal___type
+    childContentfulProfileSocialMediaJsonNode___parent___parent___children
+    childContentfulProfileSocialMediaJsonNode___parent___parent___id
+    childContentfulProfileSocialMediaJsonNode___sys___type
+    childContentfulProfileSocialMediaJsonNode___value
+    children
+    childrenContentfulProfileSocialMediaJsonNode
+    childrenContentfulProfileSocialMediaJsonNode___children
+    childrenContentfulProfileSocialMediaJsonNode___children___children
+    childrenContentfulProfileSocialMediaJsonNode___children___children___children
+    childrenContentfulProfileSocialMediaJsonNode___children___children___id
+    childrenContentfulProfileSocialMediaJsonNode___children___id
+    childrenContentfulProfileSocialMediaJsonNode___children___internal___content
+    childrenContentfulProfileSocialMediaJsonNode___children___internal___contentDigest
+    childrenContentfulProfileSocialMediaJsonNode___children___internal___description
+    childrenContentfulProfileSocialMediaJsonNode___children___internal___fieldOwners
+    childrenContentfulProfileSocialMediaJsonNode___children___internal___ignoreType
+    childrenContentfulProfileSocialMediaJsonNode___children___internal___mediaType
+    childrenContentfulProfileSocialMediaJsonNode___children___internal___owner
+    childrenContentfulProfileSocialMediaJsonNode___children___internal___type
+    childrenContentfulProfileSocialMediaJsonNode___children___parent___children
+    childrenContentfulProfileSocialMediaJsonNode___children___parent___id
+    childrenContentfulProfileSocialMediaJsonNode___id
+    childrenContentfulProfileSocialMediaJsonNode___internal___content
+    childrenContentfulProfileSocialMediaJsonNode___internal___contentDigest
+    childrenContentfulProfileSocialMediaJsonNode___internal___description
+    childrenContentfulProfileSocialMediaJsonNode___internal___fieldOwners
+    childrenContentfulProfileSocialMediaJsonNode___internal___ignoreType
+    childrenContentfulProfileSocialMediaJsonNode___internal___mediaType
+    childrenContentfulProfileSocialMediaJsonNode___internal___owner
+    childrenContentfulProfileSocialMediaJsonNode___internal___type
+    childrenContentfulProfileSocialMediaJsonNode___key
+    childrenContentfulProfileSocialMediaJsonNode___parent___children
+    childrenContentfulProfileSocialMediaJsonNode___parent___children___children
+    childrenContentfulProfileSocialMediaJsonNode___parent___children___id
+    childrenContentfulProfileSocialMediaJsonNode___parent___id
+    childrenContentfulProfileSocialMediaJsonNode___parent___internal___content
+    childrenContentfulProfileSocialMediaJsonNode___parent___internal___contentDigest
+    childrenContentfulProfileSocialMediaJsonNode___parent___internal___description
+    childrenContentfulProfileSocialMediaJsonNode___parent___internal___fieldOwners
+    childrenContentfulProfileSocialMediaJsonNode___parent___internal___ignoreType
+    childrenContentfulProfileSocialMediaJsonNode___parent___internal___mediaType
+    childrenContentfulProfileSocialMediaJsonNode___parent___internal___owner
+    childrenContentfulProfileSocialMediaJsonNode___parent___internal___type
+    childrenContentfulProfileSocialMediaJsonNode___parent___parent___children
+    childrenContentfulProfileSocialMediaJsonNode___parent___parent___id
+    childrenContentfulProfileSocialMediaJsonNode___sys___type
+    childrenContentfulProfileSocialMediaJsonNode___value
+    children___children
+    children___children___children
+    children___children___children___children
+    children___children___children___id
+    children___children___id
+    children___children___internal___content
+    children___children___internal___contentDigest
+    children___children___internal___description
+    children___children___internal___fieldOwners
+    children___children___internal___ignoreType
+    children___children___internal___mediaType
+    children___children___internal___owner
+    children___children___internal___type
+    children___children___parent___children
+    children___children___parent___id
+    children___id
+    children___internal___content
+    children___internal___contentDigest
+    children___internal___description
+    children___internal___fieldOwners
+    children___internal___ignoreType
+    children___internal___mediaType
+    children___internal___owner
+    children___internal___type
+    children___parent___children
+    children___parent___children___children
+    children___parent___children___id
+    children___parent___id
+    children___parent___internal___content
+    children___parent___internal___contentDigest
+    children___parent___internal___description
+    children___parent___internal___fieldOwners
+    children___parent___internal___ignoreType
+    children___parent___internal___mediaType
+    children___parent___internal___owner
+    children___parent___internal___type
+    children___parent___parent___children
+    children___parent___parent___id
+    contentful_id
+    createdAt
+    degree
+    email
+    firstname
+    id
+    internal___content
+    internal___contentDigest
+    internal___description
+    internal___fieldOwners
+    internal___ignoreType
+    internal___mediaType
+    internal___owner
+    internal___type
+    lastname
+    location
+    node_locale
+    parent___children
+    parent___children___children
+    parent___children___children___children
+    parent___children___children___id
+    parent___children___id
+    parent___children___internal___content
+    parent___children___internal___contentDigest
+    parent___children___internal___description
+    parent___children___internal___fieldOwners
+    parent___children___internal___ignoreType
+    parent___children___internal___mediaType
+    parent___children___internal___owner
+    parent___children___internal___type
+    parent___children___parent___children
+    parent___children___parent___id
+    parent___id
+    parent___internal___content
+    parent___internal___contentDigest
+    parent___internal___description
+    parent___internal___fieldOwners
+    parent___internal___ignoreType
+    parent___internal___mediaType
+    parent___internal___owner
+    parent___internal___type
+    parent___parent___children
+    parent___parent___children___children
+    parent___parent___children___id
+    parent___parent___id
+    parent___parent___internal___content
+    parent___parent___internal___contentDigest
+    parent___parent___internal___description
+    parent___parent___internal___fieldOwners
+    parent___parent___internal___ignoreType
+    parent___parent___internal___mediaType
+    parent___parent___internal___owner
+    parent___parent___internal___type
+    parent___parent___parent___children
+    parent___parent___parent___id
+    skills
+    socialMedia
+    socialMedia___children
+    socialMedia___children___children
+    socialMedia___children___children___children
+    socialMedia___children___children___id
+    socialMedia___children___id
+    socialMedia___children___internal___content
+    socialMedia___children___internal___contentDigest
+    socialMedia___children___internal___description
+    socialMedia___children___internal___fieldOwners
+    socialMedia___children___internal___ignoreType
+    socialMedia___children___internal___mediaType
+    socialMedia___children___internal___owner
+    socialMedia___children___internal___type
+    socialMedia___children___parent___children
+    socialMedia___children___parent___id
+    socialMedia___id
+    socialMedia___internal___content
+    socialMedia___internal___contentDigest
+    socialMedia___internal___description
+    socialMedia___internal___fieldOwners
+    socialMedia___internal___ignoreType
+    socialMedia___internal___mediaType
+    socialMedia___internal___owner
+    socialMedia___internal___type
+    socialMedia___key
+    socialMedia___parent___children
+    socialMedia___parent___children___children
+    socialMedia___parent___children___id
+    socialMedia___parent___id
+    socialMedia___parent___internal___content
+    socialMedia___parent___internal___contentDigest
+    socialMedia___parent___internal___description
+    socialMedia___parent___internal___fieldOwners
+    socialMedia___parent___internal___ignoreType
+    socialMedia___parent___internal___mediaType
+    socialMedia___parent___internal___owner
+    socialMedia___parent___internal___type
+    socialMedia___parent___parent___children
+    socialMedia___parent___parent___id
+    socialMedia___sys___type
+    socialMedia___value
+    spaceId
+    sys___contentType___sys___id
+    sys___contentType___sys___linkType
+    sys___contentType___sys___type
+    sys___revision
+    sys___type
+    title
+    updatedAt
+}
+
 enum ContentfulProjectCategoriesFieldsEnum {
     childContentfulProjectCategoriesDescriptionTextNode___children
     childContentfulProjectCategoriesDescriptionTextNode___children___children
@@ -2295,6 +2680,7 @@ enum ContentfulProjectCategoriesFieldsEnum {
     projects___categories___projects___createdAt
     projects___categories___projects___gallery
     projects___categories___projects___id
+    projects___categories___projects___isFeatured
     projects___categories___projects___node_locale
     projects___categories___projects___slug
     projects___categories___projects___spaceId
@@ -2571,6 +2957,7 @@ enum ContentfulProjectCategoriesFieldsEnum {
     projects___introImage___updatedAt
     projects___introImage___url
     projects___introImage___width
+    projects___isFeatured
     projects___node_locale
     projects___parent___children
     projects___parent___children___children
@@ -2785,6 +3172,7 @@ enum ContentfulProjectsFieldsEnum {
     categories___projects___introImage___updatedAt
     categories___projects___introImage___url
     categories___projects___introImage___width
+    categories___projects___isFeatured
     categories___projects___node_locale
     categories___projects___parent___children
     categories___projects___parent___id
@@ -3218,6 +3606,7 @@ enum ContentfulProjectsFieldsEnum {
     introImage___updatedAt
     introImage___url
     introImage___width
+    isFeatured
     node_locale
     parent___children
     parent___children___children
@@ -4034,6 +4423,8 @@ enum SiteFieldsEnum {
     children___parent___internal___type
     children___parent___parent___children
     children___parent___parent___id
+    flags___GRAPHQL_TYPEGEN
+    graphqlTypegen
     host
     id
     internal___content
@@ -4532,6 +4923,98 @@ enum ThemeI18nFieldsEnum {
     prefixDefault
 }
 
+enum contentfulProfileSocialMediaJsonNodeFieldsEnum {
+    children
+    children___children
+    children___children___children
+    children___children___children___children
+    children___children___children___id
+    children___children___id
+    children___children___internal___content
+    children___children___internal___contentDigest
+    children___children___internal___description
+    children___children___internal___fieldOwners
+    children___children___internal___ignoreType
+    children___children___internal___mediaType
+    children___children___internal___owner
+    children___children___internal___type
+    children___children___parent___children
+    children___children___parent___id
+    children___id
+    children___internal___content
+    children___internal___contentDigest
+    children___internal___description
+    children___internal___fieldOwners
+    children___internal___ignoreType
+    children___internal___mediaType
+    children___internal___owner
+    children___internal___type
+    children___parent___children
+    children___parent___children___children
+    children___parent___children___id
+    children___parent___id
+    children___parent___internal___content
+    children___parent___internal___contentDigest
+    children___parent___internal___description
+    children___parent___internal___fieldOwners
+    children___parent___internal___ignoreType
+    children___parent___internal___mediaType
+    children___parent___internal___owner
+    children___parent___internal___type
+    children___parent___parent___children
+    children___parent___parent___id
+    id
+    internal___content
+    internal___contentDigest
+    internal___description
+    internal___fieldOwners
+    internal___ignoreType
+    internal___mediaType
+    internal___owner
+    internal___type
+    key
+    parent___children
+    parent___children___children
+    parent___children___children___children
+    parent___children___children___id
+    parent___children___id
+    parent___children___internal___content
+    parent___children___internal___contentDigest
+    parent___children___internal___description
+    parent___children___internal___fieldOwners
+    parent___children___internal___ignoreType
+    parent___children___internal___mediaType
+    parent___children___internal___owner
+    parent___children___internal___type
+    parent___children___parent___children
+    parent___children___parent___id
+    parent___id
+    parent___internal___content
+    parent___internal___contentDigest
+    parent___internal___description
+    parent___internal___fieldOwners
+    parent___internal___ignoreType
+    parent___internal___mediaType
+    parent___internal___owner
+    parent___internal___type
+    parent___parent___children
+    parent___parent___children___children
+    parent___parent___children___id
+    parent___parent___id
+    parent___parent___internal___content
+    parent___parent___internal___contentDigest
+    parent___parent___internal___description
+    parent___parent___internal___fieldOwners
+    parent___parent___internal___ignoreType
+    parent___parent___internal___mediaType
+    parent___parent___internal___owner
+    parent___parent___internal___type
+    parent___parent___parent___children
+    parent___parent___parent___id
+    sys___type
+    value
+}
+
 enum contentfulProjectCategoriesDescriptionTextNodeFieldsEnum {
     children
     children___children
@@ -4626,6 +5109,8 @@ enum contentfulProjectCategoriesDescriptionTextNodeFieldsEnum {
 "A date string, such as 2007-12-03, compliant with the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
 scalar Date
 
+scalar GatsbyImageData
+
 "The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
 
@@ -4679,7 +5164,7 @@ input ContentfulAssetFilterInput {
     file: ContentfulAssetFileFilterInput
     filename: StringQueryOperatorInput
     filesize: IntQueryOperatorInput
-    gatsbyImage: JSONQueryOperatorInput
+    gatsbyImage: GatsbyImageDataQueryOperatorInput
     gatsbyImageData: JSONQueryOperatorInput
     height: IntQueryOperatorInput
     id: StringQueryOperatorInput
@@ -4748,6 +5233,55 @@ input ContentfulEntrySortInput {
     order: [SortOrderEnum] = [ASC]
 }
 
+input ContentfulProfileAboutFilterInput {
+    raw: StringQueryOperatorInput
+}
+
+input ContentfulProfileFilterInput {
+    about: ContentfulProfileAboutFilterInput
+    childContentfulProfileSocialMediaJsonNode: contentfulProfileSocialMediaJsonNodeFilterInput
+    children: NodeFilterListInput
+    childrenContentfulProfileSocialMediaJsonNode: contentfulProfileSocialMediaJsonNodeFilterListInput
+    contentful_id: StringQueryOperatorInput
+    createdAt: DateQueryOperatorInput
+    degree: StringQueryOperatorInput
+    email: StringQueryOperatorInput
+    firstname: StringQueryOperatorInput
+    id: StringQueryOperatorInput
+    internal: InternalFilterInput
+    lastname: StringQueryOperatorInput
+    location: StringQueryOperatorInput
+    node_locale: StringQueryOperatorInput
+    parent: NodeFilterInput
+    skills: StringQueryOperatorInput
+    socialMedia: contentfulProfileSocialMediaJsonNodeFilterListInput
+    spaceId: StringQueryOperatorInput
+    sys: ContentfulProfileSysFilterInput
+    title: StringQueryOperatorInput
+    updatedAt: DateQueryOperatorInput
+}
+
+input ContentfulProfileSortInput {
+    fields: [ContentfulProfileFieldsEnum]
+    order: [SortOrderEnum] = [ASC]
+}
+
+input ContentfulProfileSysContentTypeFilterInput {
+    sys: ContentfulProfileSysContentTypeSysFilterInput
+}
+
+input ContentfulProfileSysContentTypeSysFilterInput {
+    id: StringQueryOperatorInput
+    linkType: StringQueryOperatorInput
+    type: StringQueryOperatorInput
+}
+
+input ContentfulProfileSysFilterInput {
+    contentType: ContentfulProfileSysContentTypeFilterInput
+    revision: IntQueryOperatorInput
+    type: StringQueryOperatorInput
+}
+
 input ContentfulProjectCategoriesFilterInput {
     childContentfulProjectCategoriesDescriptionTextNode: contentfulProjectCategoriesDescriptionTextNodeFilterInput
     children: NodeFilterListInput
@@ -4807,6 +5341,7 @@ input ContentfulProjectsFilterInput {
     id: StringQueryOperatorInput
     internal: InternalFilterInput
     introImage: ContentfulAssetFilterInput
+    isFeatured: BooleanQueryOperatorInput
     node_locale: StringQueryOperatorInput
     parent: NodeFilterInput
     slug: StringQueryOperatorInput
@@ -4962,11 +5497,18 @@ input FloatQueryOperatorInput {
     nin: [Float]
 }
 
+input GatsbyImageDataQueryOperatorInput {
+    eq: GatsbyImageData
+    in: [GatsbyImageData]
+    ne: GatsbyImageData
+    nin: [GatsbyImageData]
+}
+
 input ImageSharpFilterInput {
     children: NodeFilterListInput
     fixed: ImageSharpFixedFilterInput
     fluid: ImageSharpFluidFilterInput
-    gatsbyImageData: JSONQueryOperatorInput
+    gatsbyImageData: GatsbyImageDataQueryOperatorInput
     id: StringQueryOperatorInput
     internal: InternalFilterInput
     original: ImageSharpOriginalFilterInput
@@ -5125,6 +5667,8 @@ input SiteBuildMetadataSortInput {
 input SiteFilterInput {
     buildTime: DateQueryOperatorInput
     children: NodeFilterListInput
+    flags: SiteFlagsFilterInput
+    graphqlTypegen: BooleanQueryOperatorInput
     host: StringQueryOperatorInput
     id: StringQueryOperatorInput
     internal: InternalFilterInput
@@ -5135,6 +5679,10 @@ input SiteFilterInput {
     port: IntQueryOperatorInput
     siteMetadata: SiteSiteMetadataFilterInput
     trailingSlash: StringQueryOperatorInput
+}
+
+input SiteFlagsFilterInput {
+    GRAPHQL_TYPEGEN: BooleanQueryOperatorInput
 }
 
 input SiteFunctionFilterInput {
@@ -5243,6 +5791,29 @@ input TransformOptions {
 
 input WebPOptions {
     quality: Int
+}
+
+input contentfulProfileSocialMediaJsonNodeFilterInput {
+    children: NodeFilterListInput
+    id: StringQueryOperatorInput
+    internal: InternalFilterInput
+    key: StringQueryOperatorInput
+    parent: NodeFilterInput
+    sys: contentfulProfileSocialMediaJsonNodeSysFilterInput
+    value: StringQueryOperatorInput
+}
+
+input contentfulProfileSocialMediaJsonNodeFilterListInput {
+    elemMatch: contentfulProfileSocialMediaJsonNodeFilterInput
+}
+
+input contentfulProfileSocialMediaJsonNodeSortInput {
+    fields: [contentfulProfileSocialMediaJsonNodeFieldsEnum]
+    order: [SortOrderEnum] = [ASC]
+}
+
+input contentfulProfileSocialMediaJsonNodeSysFilterInput {
+    type: StringQueryOperatorInput
 }
 
 input contentfulProjectCategoriesDescriptionTextNodeFilterInput {
