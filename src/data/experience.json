@@ -1,14 +1,6 @@
 [
   {
     "id": 1,
-    "company": "PvPRO Gaming",
-    "title": "Creative Director / Frontend Developer",
-    "from": "May 2016",
-    "to": "Present",
-    "description": ""
-  },
-  {
-    "id": 2,
     "company": "MODplus",
     "title": "Co-Founder / Design Manager",
     "from": "Jan 2014",
@@ -16,11 +8,19 @@
     "description": ""
   },
   {
-    "id": 3,
+    "id": 2,
     "company": "Freelance",
     "title": "Creative Director / Web Development",
     "from": "Jan 2013",
     "to": "Present",
+    "description": ""
+  },
+  {
+    "id": 3,
+    "company": "PvPRO Gaming",
+    "title": "Creative Director / Frontend Developer",
+    "from": "May 2016",
+    "to": "May 2022",
     "description": ""
   },
   {
