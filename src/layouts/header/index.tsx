@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Button, IconWithText } from "@components";
-import { useViewportScroll } from "framer-motion";
+import { useScroll } from "framer-motion";
 import classNames from "classnames";
 import MenuToggle from "./MenuToggle";
 import { useCloseSidebar, useIsMobile, useIsSidebarOpen, useToggleSidebar } from "@utilities";
@@ -42,7 +42,7 @@ const Header: FC<React.PropsWithChildren<IHeader>> = () => {
     const closeSidebar = useCloseSidebar()
     const isMobile = useIsMobile();
     const [ scrolled, setScrolled ] = useState( false );
-    const { scrollY } = useViewportScroll();
+    const { scrollY } = useScroll();
 
     useEffect( () => {
         function isScrolled( v: number ) {
