@@ -1,5 +1,4 @@
 import { Document } from "@contentful/rich-text-types";
-import { IProjectCategories } from "./generated/contentful";
 import { TypeImage } from "./general";
 
 export type TypeProject = {
@@ -10,7 +9,7 @@ export type TypeProject = {
     title: string;
     slug: string;
     isFeatured?: boolean | undefined;
-    categories?: IProjectCategories[] | undefined;
+    categories?: Queries.ContentfulProjectCategories[] | undefined;
     tags?: string[] | undefined;
     websiteUrl?: string | undefined;
     description?: Document | undefined;
