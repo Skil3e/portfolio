@@ -1,6 +1,14 @@
 [
   {
-    "id": 1,
+    "id": 6,
+    "company": "Bleech",
+    "title": "Frontend Developer",
+    "from": "Oct 2022",
+    "to": "Present",
+    "description": ""
+  },
+  {
+    "id": 5,
     "company": "MODplus",
     "title": "Co-Founder / Design Manager",
     "from": "Jan 2014",
@@ -8,7 +16,7 @@
     "description": ""
   },
   {
-    "id": 2,
+    "id": 4,
     "company": "Freelance",
     "title": "Creative Director / Web Development",
     "from": "Jan 2013",
@@ -24,7 +32,7 @@
     "description": ""
   },
   {
-    "id": 4,
+    "id": 2,
     "company": "infocube",
     "title": "Graphic Designer",
     "from": "Mar 2016",
@@ -32,7 +40,7 @@
     "description": ""
   },
   {
-    "id": 5,
+    "id": 1,
     "company": "4-ROOM | Creative Home",
     "title": "Design Manager / Store Manager",
     "from": "Oct 2014",
